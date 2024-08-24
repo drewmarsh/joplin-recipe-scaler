@@ -74,14 +74,14 @@ joplin.plugins.register({
 function scaleRecipeContent(content: string): string {
     console.log('Scaling recipe content.');
     const lines = content.split('\n');
-    const scaleFactorMatch = lines[0].match(/^\{(\d+),(\d+)\}/);
+    const scaleFactorMatch = lines[0].match(/^\{(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)\}/);
 
     if (!scaleFactorMatch) {
         console.log('No scale factor found at the top of the note.');
         return content;
     }
 
-    const [_, originalServing, targetServing] = scaleFactorMatch.map(Number);
+    const [_, originalServing, targetServing] = scaleFactorMatch.map(parseFloat);
     const scaleFactor = targetServing / originalServing;
     console.log(`Original serving: ${originalServing}, Target serving: ${targetServing}, Scale factor: ${scaleFactor}`);
 
@@ -121,7 +121,7 @@ function formatAmount(amount: number): string {
     console.log(`Formatting amount: ${amount}`);
     const rounded = Math.round(amount * 100) / 100;
 
-    if (Math.floor(rounded) === rounded) {
+    if (Number.isInteger(rounded)) {
         console.log(`Rounded amount (whole number): ${rounded}`);
         return rounded.toString();
     }
