@@ -1,3 +1,5 @@
+### 🛑 If you're not a developer, then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you.
+
 ## 🛠️ Building the plugin
 
 If you plan to help develop this plugin further then you'll need to know how to build the plugin once you make your changes.
