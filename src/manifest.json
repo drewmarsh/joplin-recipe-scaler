@@ -1,0 +1,15 @@
+{
+	"manifest_version": 1,
+	"id": "com.example.recipescaler",
+	"app_min_version": "2.13",
+	"version": "1.0.0",
+	"name": "Recipe Scaler",
+	"description": "Scales recipe values to quickly adjust serving size",
+	"author": "Drew Marshall",
+	"homepage_url": "https://github.com/drewmarsh/recipe-scaler",
+	"repository_url": "https://github.com/drewmarsh/recipe-scaler",
+	"keywords": [],
+	"categories": [],
+	"screenshots": [],
+	"icons": {}
+}

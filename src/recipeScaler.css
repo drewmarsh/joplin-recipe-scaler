@@ -1,0 +1,12 @@
+/* recipeScaler.css */
+.serving-size {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recipe-amount {
+    background-color: #e0f7fa;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
