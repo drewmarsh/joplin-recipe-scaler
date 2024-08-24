@@ -1,4 +1,4 @@
-### 🛑 If you're not a developer, then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you.
+### 🛑 If you're not a developer, then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
 
 ## 🛠️ Building the plugin
 
