@@ -7,10 +7,18 @@ module.exports = {
                 };
 
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
-                    // Remove the curly braces and keep only the scaled amount
-                    tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)\}/g, (match, originalAmount, scaledAmount) => {
+                    // Handle the new format for the scale factor line
+                    tokens[idx].content = tokens[idx].content.replace(/\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*,\s*scaled\s*=\s*(\d+(?:\.\d+)?)\s*\}/, (match, originalAmount, scaledAmount) => {
+                        
+                        if (scaledAmount != originalAmount) { return `This recipe originally made ${originalAmount} serving(s) but has been scaled to make ${scaledAmount} serving(s)`; }
+                        else { return `Makes ${originalAmount} serving(s)`; }
+                    });
+
+                    // Handle ingredient amounts
+                    tokens[idx].content = tokens[idx].content.replace(/\{\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*\}/g, (match, originalAmount, scaledAmount) => {
                         return `${scaledAmount}`; // Replace with only the scaled amount
                     });
+
                     return defaultRender(tokens, idx, options, env, self);
                 };
             },

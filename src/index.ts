@@ -26,7 +26,9 @@ joplin.plugins.register({
                         const note = await joplin.workspace.selectedNote();
                         if (note) {
                             console.log('Selected note:', note);
+                            console.log('Original note content:', note.body);
                             const scaledContent = scaleRecipeContent(note.body);
+                            console.log('Scaled note content:', scaledContent);
 
                             // Update the note content
                             await joplin.data.put(['notes', note.id], null, { body: scaledContent });
@@ -74,13 +76,15 @@ joplin.plugins.register({
 function scaleRecipeContent(content: string): string {
     console.log('Scaling recipe content.');
     const lines = content.split('\n');
-    const scaleFactorMatch = lines[0].match(/^\{(\d+(?:\.\d+)?),(\d+(?:\.\d+)?)\}/);
+    console.log('First line:', lines[0]);
+    const scaleFactorMatch = lines[0].match(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*,\s*scaled\s*=\s*(\d+(?:\.\d+)?)\s*\}/);
 
     if (!scaleFactorMatch) {
-        console.log('No scale factor found at the top of the note.');
+        console.log('No scale factor found at the top of the note or invalid format.');
         return content;
     }
 
+    console.log('Scale factor match:', scaleFactorMatch);
     const [_, originalServing, targetServing] = scaleFactorMatch.map(parseFloat);
     const scaleFactor = targetServing / originalServing;
     console.log(`Original serving: ${originalServing}, Target serving: ${targetServing}, Scale factor: ${scaleFactor}`);
@@ -88,44 +92,31 @@ function scaleRecipeContent(content: string): string {
     // Remove the scale factor line
     lines.shift();
 
-    const scaledContent = lines.map(line => {
-        return line.replace(/\{(\d+(?:\.\d+)?)(?:,\d+(?:\.\d+)?)*\}/g, match => {
-            const amountMatch = match.match(/\{(\d+(?:\.\d+)?)(?:,\d+(?:\.\d+)?)*\}/);
-            if (amountMatch) {
-                const originalAmount = amountMatch[1];
-                console.log(`Original amount: ${originalAmount}`);
-                const scaledValue = evaluateAndScale(originalAmount, scaleFactor);
-                console.log(`Scaled value for ${originalAmount}: ${scaledValue}`);
-                return `{${originalAmount},${scaledValue}}`;
-            }
-            return match;
+    const scaledContent = lines.map((line, index) => {
+        console.log(`Processing line ${index + 1}:`, line);
+        return line.replace(/\{\s*(\d+(?:\.\d+)?)\s*(?:,\s*\d+(?:\.\d+)?)?\s*\}/g, (match, amount) => {
+            const originalAmount = parseFloat(amount);
+            console.log(`Found amount to scale: ${originalAmount}`);
+            const scaledValue = evaluateAndScale(originalAmount, scaleFactor);
+            console.log(`Scaled value for ${originalAmount}: ${scaledValue}`);
+            return `{${originalAmount}, ${scaledValue}}`;
         });
     }).join('\n');
 
-    // Add the scale factor back at the top
-    return `{${originalServing},${targetServing}}\n${scaledContent}`;
+    console.log('Scaled content:', scaledContent);
+
+    // Add the scale factor back at the top with the new format
+    return `{original=${originalServing}, scaled=${targetServing}}\n${scaledContent}`;
 }
 
-function evaluateAndScale(amount: string, scaleFactor: number): string {
+function evaluateAndScale(amount: number, scaleFactor: number): string {
     console.log(`Evaluating and scaling amount: ${amount} with scale factor: ${scaleFactor}`);
-    const scaledAmount = parseFloat(amount) * scaleFactor;
+    const scaledAmount = amount * scaleFactor;
     console.log(`Scaled amount: ${scaledAmount}`);
-
-    const roundedAmount = Math.round(scaledAmount * 100) / 100;
-    console.log(`Rounded amount: ${roundedAmount}`);
-
-    return formatAmount(roundedAmount);
+    return formatAmount(scaledAmount);
 }
 
 function formatAmount(amount: number): string {
-    console.log(`Formatting amount: ${amount}`);
     const rounded = Math.round(amount * 100) / 100;
-
-    if (Number.isInteger(rounded)) {
-        console.log(`Rounded amount (whole number): ${rounded}`);
-        return rounded.toString();
-    }
-
-    console.log(`Rounded amount (decimal): ${rounded.toFixed(2)}`);
-    return rounded.toFixed(2);
+    return rounded % 1 === 0 ? rounded.toString() : rounded.toFixed(2);
 }
