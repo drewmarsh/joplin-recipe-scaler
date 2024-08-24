@@ -1,5 +1,9 @@
-# Joplin Plugin
+## Building the plugin
 
-This is your new Joplin plugin. It is suggested that you use this README file to document your plugin.
+If you plan to help develop this plugin further then you'll need to know how to build the plugin once you make your changes.
 
-For information on how to build or publish the plugin, please see [GENERATOR_DOC.md](./GENERATOR_DOC.md)
+The plugin is built using Webpack, which creates the compiled code in `/dist`. A JPL archive will also be created at the root, which can be used to distribute the plugin.
+
+To build the plugin, simply run `npm run dist`.
+
+If this returns an error, you likely need to first install Webpack globally with `npm install -g webpack`.
