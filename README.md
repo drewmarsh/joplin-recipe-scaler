@@ -8,7 +8,7 @@
 TODO: Add the list of features.
 
 # 🛠️ Building the plugin
-#### 🛑 If you're not a developer, then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
+#### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
 
 To help develop this plugin further then you'll need to know how to build the plugin once you make your changes.
 
