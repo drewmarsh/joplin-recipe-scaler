@@ -1,11 +1,9 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e3e10d8e-fec4-470a-a1aa-16418b224d15" width="400" height="400">
+  <img src="https://github.com/user-attachments/assets/828f4bcc-ecd4-46c7-8a26-ebde3e20bc2d" width="400" height="400">
 </p>
 
 # ⚖️ Features
 TODO: Add the list of features.
-
-
 
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer, then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
