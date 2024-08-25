@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/828f4bcc-ecd4-46c7-8a26-ebde3e20bc2d" width="400" height="400">
+  <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
+    <img src="https://github.com/user-attachments/assets/828f4bcc-ecd4-46c7-8a26-ebde3e20bc2d" width="400" height="400">
+  </a>
 </p>
 
 # ⚖️ Features
