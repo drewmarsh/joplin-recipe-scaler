@@ -9,6 +9,9 @@ joplin.plugins.register({
     },
 });
 
+/**
+ * Registers the content script for the recipe scaler.
+ */
 async function registerContentScript() {
     try {
         await joplin.contentScripts.register(
@@ -22,6 +25,9 @@ async function registerContentScript() {
     }
 }
 
+/**
+ * Registers the command for scaling recipes.
+ */
 async function registerCommand() {
     try {
         await joplin.commands.register({
@@ -35,6 +41,9 @@ async function registerCommand() {
     }
 }
 
+/**
+ * Creates a toolbar button for the recipe scaler.
+ */
 async function createToolbarButton() {
     try {
         await joplin.views.toolbarButtons.create(
@@ -48,6 +57,9 @@ async function createToolbarButton() {
     }
 }
 
+/**
+ * Executes the recipe scaling command.
+ */
 async function scaleRecipeCommand() {
     try {
         const note = await joplin.workspace.selectedNote();
@@ -64,17 +76,39 @@ async function scaleRecipeCommand() {
     }
 }
 
+/**
+ * Updates the content of a note.
+ * @param {string} noteId - The ID of the note to update.
+ * @param {string} content - The new content for the note.
+ */
 async function updateNoteContent(noteId: string, content: string) {
-    await joplin.data.put(['notes', noteId], null, { body: content });
-    console.info('Note content updated with scaled recipe.');
+    try {
+        await joplin.data.put(['notes', noteId], null, { body: content });
+        console.info('Note content updated with scaled recipe.');
+    } catch (error) {
+        console.error('Failed to update note content:', error);
+    }
 }
 
+/**
+ * Refreshes the editor view with new content.
+ * @param {string} content - The new content to display in the editor.
+ */
 async function refreshEditorView(content: string) {
-    await joplin.commands.execute('textSelectAll');
-    await joplin.commands.execute('replaceSelection', content);
-    console.info('Editor view refreshed.');
+    try {
+        await joplin.commands.execute('textSelectAll');
+        await joplin.commands.execute('replaceSelection', content);
+        console.info('Editor view refreshed.');
+    } catch (error) {
+        console.error('Failed to refresh editor view:', error);
+    }
 }
 
+/**
+ * Scales the content of a recipe.
+ * @param {string} content - The original recipe content.
+ * @returns {string} The scaled recipe content.
+ */
 function scaleRecipeContent(content: string): string {
     const lines = content.split('\n');
     const scaleFactorMatch = lines[0].match(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*,\s*scaled\s*=\s*(\d+(?:\.\d+)?)\s*\}/);
@@ -93,7 +127,7 @@ function scaleRecipeContent(content: string): string {
         return line.replace(/\{\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*\}/g, (match, originalAmount, currentAmount) => {
             const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
             return `{${originalAmount}, ${newAmount}}`;
-        }).replace(/<\s*([\d.]+(?:[\s-]+\d+\/\d+)?|(?:\d+\/\d+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))?\s*>/g, (match, originalAmount, currentAmount) => {
+        }).replace(/<\s*([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))?\s*>/g, (match, originalAmount, currentAmount) => {
             const newAmount = scaleAndFormatFraction(originalAmount, scaleFactor);
             return `<${originalAmount}, ${newAmount}>`;
         });
@@ -102,11 +136,22 @@ function scaleRecipeContent(content: string): string {
     return `{original=${originalServing}, scaled=${targetServing}}\n${scaledContent}`;
 }
 
+/**
+ * Evaluates and scales a numeric amount.
+ * @param {number} amount - The original amount to scale.
+ * @param {number} scaleFactor - The factor to scale by.
+ * @returns {string} The scaled amount as a string.
+ */
 function evaluateAndScale(amount: number, scaleFactor: number): string {
     const scaledAmount = amount * scaleFactor;
     return Number.isInteger(scaledAmount) ? scaledAmount.toFixed(0) : scaledAmount.toFixed(2);
 }
 
+/**
+ * Converts a Unicode fraction to its numeric value.
+ * @param {string} fraction - The Unicode fraction to convert.
+ * @returns {number} The numeric value of the fraction.
+ */
 function unicodeFractionToNumber(fraction: string): number {
     const fractions: {[key: string]: number} = {
         '¼': 0.25, '½': 0.5, '¾': 0.75,
@@ -119,19 +164,38 @@ function unicodeFractionToNumber(fraction: string): number {
     return fractions[fraction] || NaN;
 }
 
+/**
+ * Converts a text-based fraction to its numeric value.
+ * @param {string} fraction - The text-based fraction to convert.
+ * @returns {number} The numeric value of the fraction.
+ */
 function textFractionToNumber(fraction: string): number {
-    const parts = fraction.split(/[\s-]+/);
-    if (parts.length === 1) {
-        const [numerator, denominator] = parts[0].split('/');
-        return parseInt(numerator) / parseInt(denominator);
-    } else if (parts.length === 2) {
-        const whole = parseInt(parts[0]);
-        const [numerator, denominator] = parts[1].split('/');
-        return whole + parseInt(numerator) / parseInt(denominator);
+    const parts = fraction.trim().split(/[\s-]+/);
+    let total = 0;
+    
+    for (const part of parts) {
+        if (part.includes('/')) {
+            const [numerator, denominator] = part.split('/');
+            total += parseInt(numerator) / parseInt(denominator);
+        } else {
+            const unicodeFraction = unicodeFractionToNumber(part);
+            if (!isNaN(unicodeFraction)) {
+                total += unicodeFraction;
+            } else {
+                total += parseFloat(part);
+            }
+        }
     }
-    return NaN;
+    
+    return total;
 }
 
+/**
+ * Scales and formats a fraction.
+ * @param {string | number} amount - The original amount to scale.
+ * @param {number} scaleFactor - The factor to scale by.
+ * @returns {string} The scaled and formatted fraction.
+ */
 function scaleAndFormatFraction(amount: string | number, scaleFactor: number): string {
     let numericAmount: number;
     
@@ -148,6 +212,11 @@ function scaleAndFormatFraction(amount: string | number, scaleFactor: number): s
     return formatFraction(scaledAmount);
 }
 
+/**
+ * Formats a numeric value as a fraction.
+ * @param {number} value - The numeric value to format.
+ * @returns {string} The formatted fraction.
+ */
 function formatFraction(value: number): string {
     const wholePart = Math.floor(value);
     const fractionalPart = value - wholePart;

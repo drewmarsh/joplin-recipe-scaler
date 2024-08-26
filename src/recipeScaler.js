@@ -6,6 +6,11 @@ module.exports = {
                     return self.renderToken(tokens, idx, options);
                 };
 
+                /**
+                 * Converts a text-based fraction to its Unicode equivalent.
+                 * @param {string} fraction - The text-based fraction to convert.
+                 * @returns {string} The Unicode fraction or the original fraction if no match.
+                 */
                 function textFractionToUnicode(fraction) {
                     const fractions = {
                         '1/4': '¼', '1/2': '½', '3/4': '¾',
@@ -32,8 +37,8 @@ module.exports = {
                         return parseFloat(scaledAmount).toString();
                     });
 
-                    // Handle fractional amounts with angle brackets, including text-based fractions with dash or space
-                    tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+\d+\/\d+)?|(?:\d+\/\d+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:\d+(?:[\s-]+\d+\/\d+)?|(?:\d+\/\d+))))?>/g, (match, originalAmount, scaledAmount) => {
+                    // Handle fractional amounts with angle brackets, including Unicode fractions
+                    tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?>/g, (match, originalAmount, scaledAmount) => {
                         if (scaledAmount) {
                             // Convert text-based fraction to Unicode fraction
                             return scaledAmount.replace(/(\d+\/\d+)/g, (match) => textFractionToUnicode(match));
