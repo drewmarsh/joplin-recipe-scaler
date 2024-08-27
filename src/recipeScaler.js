@@ -24,35 +24,24 @@ module.exports = {
 
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     // Handle the scale factor line
-                    tokens[idx].content = tokens[idx].content.replace(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*,\s*scaled\s*=\s*(\d+(?:\.\d+)?)\s*\}/, (match, originalAmount, scaledAmount) => {
-                        if (parseFloat(scaledAmount) !== parseFloat(originalAmount)) {
+                    tokens[idx].content = tokens[idx].content.replace(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*(?:,\s*scaled\s*=\s*(\d+(?:\.\d+)?))?\s*\}/, (match, originalAmount, scaledAmount) => {
+                        if (scaledAmount && parseFloat(scaledAmount) !== parseFloat(originalAmount)) {
                             return `This recipe originally made ${originalAmount} serving(s) but has been scaled to make ${scaledAmount} serving(s)`;
                         } else {
                             return `Makes ${originalAmount} serving(s)`;
                         }
                     });
-
+                
                     // Handle ingredient amounts with curly braces
                     tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, originalAmount, scaledAmount) => {
-                        const scaleFactor = env.scaleFactor || 1;
-                        if (scaledAmount) {
-                            return parseFloat(scaledAmount).toString();
-                        } else {
-                            // If there's no scaled amount, we calculate it
-                            return (parseFloat(originalAmount) * scaleFactor).toFixed(2).replace(/\.00$/, '');
-                        }
+                        return scaledAmount || originalAmount;
                     });
-
+                
                     // Handle fractional amounts with angle brackets, including Unicode fractions
-                    tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?>/g, (match, originalAmount, scaledAmount) => {
-                        if (scaledAmount) {
-                            // Convert text-based fraction to Unicode fraction
-                            return scaledAmount.replace(/(\d+\/\d+)/g, (match) => textFractionToUnicode(match));
-                        } else {
-                            return originalAmount;
-                        }
+                    tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
+                        return scaledAmount || originalAmount;
                     });
-
+                
                     return defaultRender(tokens, idx, options, env, self);
                 };
             },

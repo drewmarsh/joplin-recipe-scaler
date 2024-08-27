@@ -111,7 +111,7 @@ async function refreshEditorView(content: string) {
  */
 function scaleRecipeContent(content: string): string {
     const lines = content.split('\n');
-    const scaleFactorMatch = lines[0].match(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*,\s*scaled\s*=\s*(\d+(?:\.\d+)?)\s*\}/);
+    const scaleFactorMatch = lines[0].match(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*(?:,\s*scaled\s*=\s*(\d+(?:\.\d+)?))?\s*\}/);
 
     if (!scaleFactorMatch) {
         console.log('No scale factor found at the top of the note or invalid format.');
@@ -119,27 +119,34 @@ function scaleRecipeContent(content: string): string {
     }
 
     const [_, originalServing, targetServing] = scaleFactorMatch.map(parseFloat);
-    const scaleFactor = targetServing / originalServing;
+    const scaleFactor = targetServing ? targetServing / originalServing : 1;
+    const showScaled = targetServing && targetServing !== originalServing;
 
     lines.shift();
 
     const scaledContent = lines.map(line => {
-        return line.replace(/\{\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*\}/g, (match, originalAmount, currentAmount) => {
+        return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
+            let numericScaledAmount = parseFloat(scaledAmount);
+            if (isNaN(numericScaledAmount)) {
+                numericScaledAmount = unicodeFractionToNumber(scaledAmount);
+            }
             const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
-            return `{${originalAmount}, ${newAmount}}`;
-        }).replace(/<\s*([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))?\s*>/g, (match, originalAmount, currentAmount) => {
+            return showScaled ? `{${originalAmount}, ${newAmount}}` : `{${originalAmount}}`;
+        }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
             const newAmount = scaleAndFormatFraction(originalAmount, scaleFactor);
-            return `<${originalAmount}, ${newAmount}>`;
+            return showScaled ? `<${originalAmount}, ${newAmount}>` : `<${originalAmount}>`;
         });
-    }).join('\n');
+    });
 
-    const scaledLines = scaledContent.split('\n');
+    const scaledLines = scaledContent.join('\n').split('\n');
     const firstContentLineIndex = scaledLines.findIndex(line => line.trim() !== '');
     if (firstContentLineIndex > 0) {
         // Preserve one blank line after the scale factor line
         scaledLines.splice(1, firstContentLineIndex - 1);
     }
-    return `{original=${originalServing}, scaled=${targetServing}}\n${scaledLines.join('\n')}`;
+
+    const newHeader = showScaled ? `{original=${originalServing}, scaled=${targetServing}}` : `{original=${originalServing}}`;
+    return `${newHeader}\n${scaledLines.join('\n')}`;
 }
 
 /**
@@ -150,7 +157,7 @@ function scaleRecipeContent(content: string): string {
  */
 function evaluateAndScale(amount: number, scaleFactor: number): string {
     const scaledAmount = amount * scaleFactor;
-    return Number.isInteger(scaledAmount) ? scaledAmount.toFixed(0) : scaledAmount.toFixed(2);
+    return scaledAmount.toFixed(2).replace(/\.00$/, '').replace(/\.(\d)0$/, '.$1');
 }
 
 /**
