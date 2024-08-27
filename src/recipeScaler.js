@@ -33,8 +33,14 @@ module.exports = {
                     });
 
                     // Handle ingredient amounts with curly braces
-                    tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\}/g, (match, originalAmount, scaledAmount) => {
-                        return parseFloat(scaledAmount).toString();
+                    tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, originalAmount, scaledAmount) => {
+                        const scaleFactor = env.scaleFactor || 1;
+                        if (scaledAmount) {
+                            return parseFloat(scaledAmount).toString();
+                        } else {
+                            // If there's no scaled amount, we calculate it
+                            return (parseFloat(originalAmount) * scaleFactor).toFixed(2).replace(/\.00$/, '');
+                        }
                     });
 
                     // Handle fractional amounts with angle brackets, including Unicode fractions

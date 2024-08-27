@@ -133,7 +133,13 @@ function scaleRecipeContent(content: string): string {
         });
     }).join('\n');
 
-    return `{original=${originalServing}, scaled=${targetServing}}\n${scaledContent}`;
+    const scaledLines = scaledContent.split('\n');
+    const firstContentLineIndex = scaledLines.findIndex(line => line.trim() !== '');
+    if (firstContentLineIndex > 0) {
+        // Preserve one blank line after the scale factor line
+        scaledLines.splice(1, firstContentLineIndex - 1);
+    }
+    return `{original=${originalServing}, scaled=${targetServing}}\n${scaledLines.join('\n')}`;
 }
 
 /**
