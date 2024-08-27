@@ -126,10 +126,6 @@ function scaleRecipeContent(content: string): string {
 
     const scaledContent = lines.map(line => {
         return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
-            let numericScaledAmount = parseFloat(scaledAmount);
-            if (isNaN(numericScaledAmount)) {
-                numericScaledAmount = unicodeFractionToNumber(scaledAmount);
-            }
             const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
             return showScaled ? `{${originalAmount}, ${newAmount}}` : `{${originalAmount}}`;
         }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
