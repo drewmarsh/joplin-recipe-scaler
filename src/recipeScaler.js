@@ -91,11 +91,13 @@ module.exports = {
                             return renderRecipeCard(recipeInfo) + defaultRender(tokens, idx, options, env, self);
                         }
                     }
-
+                    
+                    // Hide curly braces from WYSIWYG editor output
                     tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, originalAmount, scaledAmount) => {
                         return scaledAmount || originalAmount;
                     });
                 
+                    // Hide angled brackets from WYSIWYG editor output
                     tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
                         return convertToUnicodeFraction(scaledAmount || originalAmount);
                     });
