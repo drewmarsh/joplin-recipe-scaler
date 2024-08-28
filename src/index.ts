@@ -111,18 +111,26 @@ async function refreshEditorView(content: string) {
  */
 function scaleRecipeContent(content: string): string {
     const lines = content.split('\n');
-    const scaleFactorMatch = lines[0].match(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*(?:,\s*scaled\s*=\s*(\d+(?:\.\d+)?))?\s*\}/);
+    const recipeInfoMatch = lines[0].match(/^\[(.*?)\]/);
 
-    if (!scaleFactorMatch) {
-        console.log('No scale factor found at the top of the note or invalid format.');
+    if (!recipeInfoMatch) {
+        console.log('No recipe info found at the top of the note or invalid format.');
         return content;
     }
 
-    const [_, originalServing, targetServing] = scaleFactorMatch.map(parseFloat);
-    const scaleFactor = targetServing ? targetServing / originalServing : 1;
-    const showScaled = targetServing && targetServing !== originalServing;
+    const recipeInfo = parseRecipeInfo(recipeInfoMatch[1]);
+    const originalServing = parseFloat(recipeInfo.original);
+    const targetServing = parseFloat(recipeInfo.scaled);
 
-    lines.shift();
+    if (isNaN(originalServing) || isNaN(targetServing)) {
+        console.log('Invalid serving sizes in recipe info.');
+        return content;
+    }
+
+    const scaleFactor = targetServing / originalServing;
+    const showScaled = targetServing !== originalServing;
+
+    lines.shift(); // Remove the recipe info line
 
     const scaledContent = lines.map(line => {
         return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
@@ -134,15 +142,36 @@ function scaleRecipeContent(content: string): string {
         });
     });
 
-    const scaledLines = scaledContent.join('\n').split('\n');
-    const firstContentLineIndex = scaledLines.findIndex(line => line.trim() !== '');
-    if (firstContentLineIndex > 0) {
-        // Preserve one blank line after the scale factor line
-        scaledLines.splice(1, firstContentLineIndex - 1);
-    }
+    // Update the recipe info with new scaled value
+    recipeInfo.scaled = targetServing.toString();
+    const newRecipeInfo = `[${formatRecipeInfo(recipeInfo)}]`;
 
-    const newHeader = showScaled ? `{original=${originalServing}, scaled=${targetServing}}` : `{original=${originalServing}}`;
-    return `${newHeader}\n${scaledLines.join('\n')}`;
+    return `${newRecipeInfo}\n${scaledContent.join('\n')}`;
+}
+
+/**
+ * Parses the recipe info string into an object.
+ * @param {string} infoString - The recipe info string.
+ * @returns {Object} An object containing the recipe info.
+ */
+function parseRecipeInfo(infoString: string): {[key: string]: string} {
+    const info: {[key: string]: string} = {};
+    infoString.split(',').forEach(pair => {
+        const [key, value] = pair.split('=').map(s => s.trim());
+        info[key] = value;
+    });
+    return info;
+}
+
+/**
+ * Formats the recipe info object back into a string.
+ * @param {Object} info - The recipe info object.
+ * @returns {string} The formatted recipe info string.
+ */
+function formatRecipeInfo(info: {[key: string]: string}): string {
+    return Object.entries(info)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(', ');
 }
 
 /**

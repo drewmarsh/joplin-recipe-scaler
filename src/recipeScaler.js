@@ -23,15 +23,50 @@ module.exports = {
                     });
                 }
 
-                markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
-                    tokens[idx].content = tokens[idx].content.replace(/^\{\s*original\s*=\s*(\d+(?:\.\d+)?)\s*(?:,\s*scaled\s*=\s*(\d+(?:\.\d+)?))?\s*\}/, (match, originalAmount, scaledAmount) => {
-                        if (scaledAmount && parseFloat(scaledAmount) !== parseFloat(originalAmount)) {
-                            return `This recipe originally made ${originalAmount} serving(s) but has been scaled to make ${scaledAmount} serving(s)`;
-                        } else {
-                            return `Makes ${originalAmount} serving(s)`;
-                        }
+                function parseRecipeInfo(content) {
+                    const match = content.match(/^\[(.+?)\]/);
+                    if (!match) return null;
+
+                    const info = {};
+                    match[1].split(',').forEach(pair => {
+                        const [key, value] = pair.split('=').map(s => s.trim());
+                        info[key] = value;
                     });
-                
+
+                    return info;
+                }
+
+                function renderRecipeCard(info) {
+                    let html = '<div class="recipe-card">';
+                    
+                    if (info.title) {
+                        html += `<h1 class="recipe-title">${info.title}</h1>`;
+                    }
+
+                    html += '<div class="recipe-details">';
+                    if (info.original && info.scaled) {
+                        html += `<span class="recipe-serving"><span class="label">originally made</span> ${info.original} <span class="label">scaled to make</span> ${info.scaled}</span>`;
+                    }
+
+                    for (const [key, value] of Object.entries(info)) {
+                        if (!['original', 'scaled', 'title'].includes(key)) {
+                            html += `<span class="recipe-info"><span class="label">${key}</span> ${value}</span>`;
+                        }
+                    }
+
+                    html += '</div></div>';
+                    return html;
+                }
+
+                markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
+                    if (idx === 0) {
+                        const recipeInfo = parseRecipeInfo(tokens[idx].content);
+                        if (recipeInfo) {
+                            tokens[idx].content = tokens[idx].content.replace(/^\[.+?\]/, '');
+                            return renderRecipeCard(recipeInfo) + defaultRender(tokens, idx, options, env, self);
+                        }
+                    }
+
                     tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, originalAmount, scaledAmount) => {
                         return scaledAmount || originalAmount;
                     });
