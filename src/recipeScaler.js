@@ -44,8 +44,13 @@ module.exports = {
                     }
 
                     html += '<div class="recipe-details">';
-                    if (info.original && info.scaled) {
-                        html += `<span class="recipe-serving"><span class="label">originally made</span> ${info.original} <span class="label">scaled to make</span> ${info.scaled}</span>`;
+                    if (info.original) {
+                        if (info.scaled && info.original !== info.scaled) {
+                            html += `<span class="recipe-serving"><span class="label">originally made</span> ${info.original}</span>`;
+                            html += `<span class="recipe-serving"><span class="label">scaled to make</span> ${info.scaled}</span>`;
+                        } else {
+                            html += `<span class="recipe-serving"><span class="label">servings</span> ${info.original}</span>`;
+                        }
                     }
 
                     for (const [key, value] of Object.entries(info)) {

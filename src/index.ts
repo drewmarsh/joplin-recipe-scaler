@@ -120,11 +120,16 @@ function scaleRecipeContent(content: string): string {
 
     const recipeInfo = parseRecipeInfo(recipeInfoMatch[1]);
     const originalServing = parseFloat(recipeInfo.original);
-    const targetServing = parseFloat(recipeInfo.scaled);
+    let targetServing = parseFloat(recipeInfo.scaled);
 
-    if (isNaN(originalServing) || isNaN(targetServing)) {
-        console.log('Invalid serving sizes in recipe info.');
+    if (isNaN(originalServing)) {
+        console.log('Invalid original serving size in recipe info.');
         return content;
+    }
+
+    if (isNaN(targetServing)) {
+        // If no valid 'scaled' value, use the original serving
+        targetServing = originalServing;
     }
 
     const scaleFactor = targetServing / originalServing;
@@ -142,8 +147,10 @@ function scaleRecipeContent(content: string): string {
         });
     });
 
-    // Update the recipe info with new scaled value
-    recipeInfo.scaled = targetServing.toString();
+    // Update the recipe info with new scaled value only if it's different from original
+    if (showScaled) {
+        recipeInfo.scaled = targetServing.toString();
+    }
     const newRecipeInfo = `[${formatRecipeInfo(recipeInfo)}]`;
 
     return `${newRecipeInfo}\n${scaledContent.join('\n')}`;
