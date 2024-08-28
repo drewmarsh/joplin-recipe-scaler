@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
-    <img src="https://github.com/user-attachments/assets/b5b1f04e-4492-43b1-91b3-ff9e02d8d2b8https://github.com/user-attachments/assets/b5b1f04e-4492-43b1-91b3-ff9e02d8d2b8" width="400" height="400">
+    <img src="https://github.com/user-attachments/assets/62b8d818-b382-4747-b312-a966bdf463c1" width="400" height="400">
   </a>
 </p>
 
