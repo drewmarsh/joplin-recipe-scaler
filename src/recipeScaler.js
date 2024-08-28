@@ -6,6 +6,11 @@ module.exports = {
                     return self.renderToken(tokens, idx, options);
                 };
 
+                /**
+                 * Converts a text fraction to its Unicode equivalent.
+                 * @param {string} fraction - The text fraction to convert.
+                 * @returns {string} The Unicode fraction or the original fraction if no match.
+                 */
                 function textFractionToUnicode(fraction) {
                     const fractions = {
                         '1/4': '¼', '1/2': '½', '3/4': '¾',
@@ -17,12 +22,22 @@ module.exports = {
                     return fractions[fraction] || fraction;
                 }
 
+                /**
+                 * Converts all text fractions in a string to Unicode fractions.
+                 * @param {string} amount - The string containing fractions to convert.
+                 * @returns {string} The string with Unicode fractions.
+                 */
                 function convertToUnicodeFraction(amount) {
                     return amount.replace(/(\d+)\/(\d+)/g, (match, numerator, denominator) => {
                         return textFractionToUnicode(match) || match;
                     });
                 }
 
+                /**
+                 * Parses recipe information from the content string.
+                 * @param {string} content - The content string to parse.
+                 * @returns {Object|null} An object containing recipe info, or null if not found.
+                 */
                 function parseRecipeInfo(content) {
                     const match = content.match(/^\[(.+?)\]/);
                     if (!match) return null;
@@ -36,6 +51,11 @@ module.exports = {
                     return info;
                 }
 
+                /**
+                 * Renders a recipe card HTML from recipe information.
+                 * @param {Object} info - The recipe information object.
+                 * @returns {string} HTML string for the recipe card.
+                 */
                 function renderRecipeCard(info) {
                     let html = '<div class="recipe-card">';
                     

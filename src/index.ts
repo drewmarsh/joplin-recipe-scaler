@@ -70,7 +70,7 @@ async function scaleRecipeCommand() {
 
         const scaledContent = scaleRecipeContent(note.body);
         await updateNoteContent(note.id, scaledContent);
-        await refreshEditorView(scaledContent);
+        await refreshEditorView(note.id, scaledContent);
     } catch (error) {
         console.error('Failed to execute Scale Recipe command:', error);
     }
@@ -92,12 +92,13 @@ async function updateNoteContent(noteId: string, content: string) {
 
 /**
  * Refreshes the editor view with new content.
+ * @param {string} noteId - The ID of the note to refresh.
  * @param {string} content - The new content to display in the editor.
  */
-async function refreshEditorView(content: string) {
+async function refreshEditorView(noteId: string, content: string) {
     try {
-        await joplin.commands.execute('textSelectAll');
-        await joplin.commands.execute('replaceSelection', content);
+        await joplin.commands.execute('editor.setText', content);
+        await joplin.commands.execute('editor.focus');
         console.info('Editor view refreshed.');
     } catch (error) {
         console.error('Failed to refresh editor view:', error);
@@ -111,7 +112,7 @@ async function refreshEditorView(content: string) {
  */
 function scaleRecipeContent(content: string): string {
     const lines = content.split('\n');
-    const recipeInfoMatch = lines[0].match(/^\[(.*?)\]/);
+    const recipeInfoMatch = lines[0].match(/^\[(.+?)\]/);
 
     if (!recipeInfoMatch) {
         console.log('No recipe info found at the top of the note or invalid format.');
@@ -133,19 +134,13 @@ function scaleRecipeContent(content: string): string {
     }
 
     const scaleFactor = targetServing / originalServing;
+    console.log('Scale factor:', scaleFactor);
     const showScaled = targetServing !== originalServing;
 
-    lines.shift(); // Remove the recipe info line
-
-    const scaledContent = lines.map(line => {
-        return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
-            const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
-            return showScaled ? `{${originalAmount}, ${newAmount}}` : `{${originalAmount}}`;
-        }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
-            const newAmount = scaleAndFormatFraction(originalAmount, scaleFactor);
-            return showScaled ? `<${originalAmount}, ${newAmount}>` : `<${originalAmount}>`;
-        });
-    });
+    // Scale the content
+    for (let i = 1; i < lines.length; i++) {
+        lines[i] = scaleLineContent(lines[i], scaleFactor, showScaled);
+    }
 
     // Update the recipe info with new scaled value only if it's different from original
     if (showScaled) {
@@ -153,7 +148,27 @@ function scaleRecipeContent(content: string): string {
     }
     const newRecipeInfo = `[${formatRecipeInfo(recipeInfo)}]`;
 
-    return `${newRecipeInfo}\n${scaledContent.join('\n')}`;
+    // Replace the first line (recipe info) with the updated version
+    lines[0] = newRecipeInfo;
+
+    return lines.join('\n');
+}
+
+/**
+ * Scales the content of a single line in the recipe.
+ * @param {string} line - The line to scale.
+ * @param {number} scaleFactor - The factor to scale by.
+ * @param {boolean} showScaled - Whether to show the scaled values.
+ * @returns {string} The scaled line content.
+ */
+function scaleLineContent(line: string, scaleFactor: number, showScaled: boolean): string {
+    return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
+        const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
+        return showScaled ? `{${originalAmount}, ${newAmount}}` : `{${originalAmount}}`;
+    }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
+        const newAmount = scaleAndFormatFraction(originalAmount, scaleFactor);
+        return showScaled ? `<${originalAmount}, ${newAmount}>` : `<${originalAmount}>`;
+    });
 }
 
 /**

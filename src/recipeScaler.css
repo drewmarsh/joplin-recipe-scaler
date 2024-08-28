@@ -16,7 +16,6 @@
     font-size: 32px;
     margin-bottom: 5px;
     border-bottom: none;
-    /*border-bottom: 2px solid var(--accent-color);*/
     padding-bottom: 10px;
 }
 
@@ -26,7 +25,8 @@
     gap: 12px;
 }
 
-.recipe-serving, .recipe-info {
+.recipe-serving,
+.recipe-info {
     background-color: transparent;
     border: none;
     padding: 4px 0;
