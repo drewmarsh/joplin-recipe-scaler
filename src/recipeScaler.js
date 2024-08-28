@@ -57,32 +57,48 @@ module.exports = {
                  * @returns {string} HTML string for the recipe card.
                  */
                 function renderRecipeCard(info) {
-                    let html = '<div class="recipe-card">';
-                    
-                    if (info.title) {
-                        html += `<h1 class="recipe-title">${info.title}</h1>`;
+                    const pairSpacing = '20px'; // Spacing between each label-value pair
+                    const labelValueGap = '10px'; // Spacing between the label and its corresponding value
+                
+                    // Create a label-value pair with specified spacing
+                    function createLabelValuePair(label, value) {
+                        return `<span style="margin-right: ${pairSpacing}; white-space: nowrap; display: inline-block;" spellcheck="false">
+                                    <span class="label" style="color: #ff8b25f9; font-weight: bold; margin-right: ${labelValueGap};" spellcheck="false">${label}</span> 
+                                    ${value}
+                                </span>`;
                     }
-
+                
+                    // Start building the HTML for the recipe card container
+                    let html = `<div style="background-color: transparent; border: 6px solid #ff8b25f9; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;">`;
+                    
+                    // Add the recipe title if it exists
+                    if (info.title) {
+                        html += `<h2 style="font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;">${info.title}</h2>`;
+                    }
+                
+                    // Add the serving information
                     html += '<div class="recipe-details">';
                     if (info.original) {
                         if (info.scaled && info.original !== info.scaled) {
-                            html += `<span class="recipe-serving"><span class="label">originally served</span> ${info.original}</span>`;
-                            html += `<span class="recipe-serving"><span class="label">scaled to serve</span> ${info.scaled}</span>`;
+                            html += createLabelValuePair('originally served', info.original);
+                            html += createLabelValuePair('scaled to serve', info.scaled);
                         } else {
-                            html += `<span class="recipe-serving"><span class="label">servings</span> ${info.original}</span>`;
+                            html += createLabelValuePair('servings', info.original);
                         }
                     }
-
+                
+                    // Add any other recipe details
                     for (const [key, value] of Object.entries(info)) {
                         if (!['original', 'scaled', 'title'].includes(key)) {
-                            html += `<span class="recipe-info"><span class="label">${key}</span> ${value}</span>`;
+                            html += createLabelValuePair(key, value);
                         }
                     }
-
+                    
+                    // Close the container and return the complete HTML
                     html += '</div></div>';
                     return html;
-                }
-
+                }                                                 
+            
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
                         const recipeInfo = parseRecipeInfo(tokens[idx].content);
