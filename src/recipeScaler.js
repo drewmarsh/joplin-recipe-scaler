@@ -93,8 +93,15 @@ module.exports = {
                     if (idx === 0) {
                         const recipeInfo = parseRecipeInfo(tokens[idx].content);
                         if (recipeInfo) {
+                            const originalMarkdown = tokens[idx].content.match(/^\[.+?\]/)[0];
                             tokens[idx].content = tokens[idx].content.replace(/^\[.+?\]/, '');
-                            return renderRecipeCard(recipeInfo) + defaultRender(tokens, idx, options, env, self);
+                            
+                            const renderedHtml = renderRecipeCard(recipeInfo);
+                            
+                            return `<div class="joplin-editable">
+                                <pre class="joplin-source" data-joplin-language="json" data-joplin-source-open="[" data-joplin-source-close="]">${originalMarkdown.slice(1, -1)}</pre>
+                                ${renderedHtml}
+                            </div>` + defaultRender(tokens, idx, options, env, self);
                         }
                     }
                     
