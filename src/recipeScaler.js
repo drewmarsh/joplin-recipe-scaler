@@ -57,47 +57,37 @@ module.exports = {
                  * @returns {string} HTML string for the recipe card.
                  */
                 function renderRecipeCard(info) {
-                    const pairSpacing = '20px'; // Spacing between each label-value pair
-                    const labelValueGap = '10px'; // Spacing between the label and its corresponding value
+                    const mainStyle = 'background-color: transparent; border: 6px solid #ff8b25f9; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;';
+                    const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
+                    const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
+                    const pairStyle = 'margin-right: 20px; white-space: nowrap; display: inline-block;';
+                    const labelStyle = 'color: #ff8b25f9; font-weight: bold; margin-right: 10px;';
                 
-                    // Create a label-value pair with specified spacing
-                    function createLabelValuePair(label, value) {
-                        return `<span style="margin-right: ${pairSpacing}; white-space: nowrap; display: inline-block;" spellcheck="false">
-                                    <span class="label" style="color: #ff8b25f9; font-weight: bold; margin-right: ${labelValueGap};" spellcheck="false">${label}</span> 
-                                    ${value}
-                                </span>`;
-                    }
-                
-                    // Start building the HTML for the recipe card container
-                    let html = `<div style="background-color: transparent; border: 6px solid #ff8b25f9; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;">`;
+                    let html = `<div style="${mainStyle}">`;
                     
-                    // Add the recipe title if it exists
                     if (info.title) {
-                        html += `<h2 style="font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;">${info.title}</h2>`;
+                        html += `<h2 style="${titleStyle}">${info.title}</h2>`;
                     }
                 
-                    // Add the serving information
-                    html += '<div class="recipe-details">';
+                    html += `<div style="${detailsStyle}">`;
                     if (info.original) {
                         if (info.scaled && info.original !== info.scaled) {
-                            html += createLabelValuePair('originally served', info.original);
-                            html += createLabelValuePair('scaled to serve', info.scaled);
+                            html += `<span style="${pairStyle}"><span style="${labelStyle}">originally served</span>${info.original}</span>`;
+                            html += `<span style="${pairStyle}"><span style="${labelStyle}">scaled to serve</span>${info.scaled}</span>`;
                         } else {
-                            html += createLabelValuePair('servings', info.original);
+                            html += `<span style="${pairStyle}"><span style="${labelStyle}">servings</span>${info.original}</span>`;
                         }
                     }
                 
-                    // Add any other recipe details
                     for (const [key, value] of Object.entries(info)) {
                         if (!['original', 'scaled', 'title'].includes(key)) {
-                            html += createLabelValuePair(key, value);
+                            html += `<span style="${pairStyle}"><span style="${labelStyle}">${key}</span>${value}</span>`;
                         }
                     }
                     
-                    // Close the container and return the complete HTML
                     html += '</div></div>';
                     return html;
-                }                                                 
+                }                                                         
             
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
@@ -122,9 +112,7 @@ module.exports = {
                 };
             },
             assets: function() {
-                return [
-                    { name: 'recipeScaler.css' }
-                ];
+                return [];
             },
         }
     }
