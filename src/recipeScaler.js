@@ -110,7 +110,7 @@ module.exports = {
                     `;
                     const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
-                    const pairStyle = 'margin-right: 20px; white-space: nowrap; display: inline-block;';
+                    const pairStyle = 'white-space: nowrap; display: inline-block;';
                     const labelStyle = `color: ${accentColor}; font-weight: bold; margin-right: 10px;`;
 
                     let html = `<div style="${mainStyle}">`;
