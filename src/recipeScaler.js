@@ -104,17 +104,35 @@ module.exports = {
                             </div>` + defaultRender(tokens, idx, options, env, self);
                         }
                     }
-                    
-                    // Hide curly braces from WYSIWYG editor output
-                    tokens[idx].content = tokens[idx].content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, originalAmount, scaledAmount) => {
-                        return scaledAmount || originalAmount;
-                    });
-                
-                    // Hide angled brackets from WYSIWYG editor output
-                    tokens[idx].content = tokens[idx].content.replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:\s*,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
-                        return convertToUnicodeFraction(scaledAmount || originalAmount);
-                    });
-                
+
+                    let content = tokens[idx].content;
+                    let originalContent = content;
+
+                    // Function to clean up the display content
+                    function cleanUpContent(content) {
+                        // Handle scaled amounts in curly braces, including when values are equal
+                        content = content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, original, scaled) => {
+                            return scaled || original;
+                        });
+
+                        // Handle scaled amounts in angle brackets, including when values are equal
+                        content = content.replace(/<(\d+(?:\.\d+)?(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, original, scaled) => {
+                            return scaled || original;
+                        });
+
+                        return content;
+                    }
+
+                    let cleanedContent = cleanUpContent(content);
+
+                    if (cleanedContent !== content) {
+                        // If the content was cleaned up, wrap it in joplin-editable
+                        return `<div class="joplin-editable">
+                            <pre class="joplin-source" data-joplin-language="markdown" data-joplin-source-open="" data-joplin-source-close="">${markdownIt.utils.escapeHtml(originalContent)}</pre>
+                            ${cleanedContent}
+                        </div>`;
+                    }
+
                     return defaultRender(tokens, idx, options, env, self);
                 };
             },
