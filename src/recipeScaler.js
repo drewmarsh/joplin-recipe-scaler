@@ -57,18 +57,19 @@ module.exports = {
                  * @returns {string} HTML string for the recipe card.
                  */
                 function renderRecipeCard(info) {
-                    const mainStyle = 'background-color: transparent; border: 6px solid #ff8b25f9; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;';
+                    const accentColor = '#ff8b25f9';
+                    const mainStyle = `background-color: transparent; border: 6px solid ${accentColor}; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;`;
                     const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
                     const pairStyle = 'margin-right: 20px; white-space: nowrap; display: inline-block;';
-                    const labelStyle = 'color: #ff8b25f9; font-weight: bold; margin-right: 10px;';
-                
+                    const labelStyle = `color: ${accentColor}; font-weight: bold; margin-right: 10px;`;
+
                     let html = `<div style="${mainStyle}">`;
-                    
+
                     if (info.title) {
                         html += `<h2 style="${titleStyle}">${info.title}</h2>`;
                     }
-                
+
                     html += `<div style="${detailsStyle}">`;
                     if (info.original) {
                         if (info.scaled && info.original !== info.scaled) {
@@ -78,16 +79,16 @@ module.exports = {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">servings</span>${info.original}</span>`;
                         }
                     }
-                
+
                     for (const [key, value] of Object.entries(info)) {
                         if (!['original', 'scaled', 'title'].includes(key)) {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">${key}</span>${value}</span>`;
                         }
                     }
-                    
+
                     html += '</div></div>';
                     return html;
-                }                                                         
+                }                                                    
             
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
