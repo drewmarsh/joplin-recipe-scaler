@@ -58,7 +58,42 @@ module.exports = {
                  */
                 function renderRecipeCard(info) {
                     const defaultColor = '#ff8b25f9';
-                    const accentColor = info.color || defaultColor;
+                    let accentColor = info.color ? info.color.toLowerCase() : defaultColor;
+                
+                    const colorMap = {
+                        red: '#ff0000',     blue: '#0000ff',    green: '#008000',   yellow: '#ffff00',
+                        orange: '#ffa500',  purple: '#800080',  brown: '#a52a2a',   black: '#000000',
+                        white: '#ffffff',   gray: '#808080',    silver: '#c0c0c0',  gold: '#ffd700',
+                        navy: '#000080',    teal: '#008080',    maroon: '#800000',  olive: '#808000',
+                        lime: '#00ff00',    aqua: '#00ffff',    turquoise: '#40e0d0', indigo: '#4b0082',
+                        violet: '#ee82ee',  magenta: '#ff00ff', tan: '#d2b48c',     chocolate: '#d2691e',
+                        coral: '#ff7f50',   crimson: '#dc143c', khaki: '#f0e68c',   lavender: '#e6e6fa',
+                        orchid: '#da70d6',  salmon: '#fa8072',  lightblue: '#add8e6', lightgreen: '#90ee90',
+                        pink: '#ffb6c1', lightyellow: '#ffffe0', lightcyan: '#e0ffff',
+                        lightcoral: '#f08080', lightsalmon: '#ffa07a', lightseagreen: '#20b2aa',
+                        lightskyblue: '#87cefa', lightsteelblue: '#b0c4de', mediumblue: '#0000cd',
+                        mediumorchid: '#ba55d3', mediumpurple: '#9370db', mediumseagreen: '#3cb371',
+                        mediumslateblue: '#7b68ee', mediumspringgreen: '#00fa9a', mediumturquoise: '#48d1cc',
+                        mediumvioletred: '#c71585', midnightblue: '#191970', mintcream: '#f5fffa',
+                        mistyrose: '#ffe4e1', moccasin: '#ffe4b5', navajowhite: '#ffdead', orangered: '#ff4500',
+                        palegoldenrod: '#eee8aa', palegreen: '#98fb98', paleturquoise: '#afeeee',
+                        palevioletred: '#db7093', papayawhip: '#ffefd5', peachpuff: '#ffdab9',
+                        peru: '#cd853f',    powderblue: '#b0e0e6', rosybrown: '#bc8f8f',
+                        royalblue: '#4169e1', saddlebrown: '#8b4513', sandybrown: '#f4a460',
+                        seagreen: '#2e8b57', seashell: '#fff5ee', skyblue: '#87ceeb',
+                        slateblue: '#6a5acd', slategray: '#708090', springgreen: '#00ff7f',
+                        steelblue: '#4682b4', thistle: '#d8bfd8', wheat: '#f5deb3',
+                        yellowgreen: '#9acd32'
+                    };
+                
+                    // Check if the color value is a color name, and replace it with the corresponding hex code if found
+                    if (colorMap[accentColor]) {
+                        accentColor = colorMap[accentColor];
+                    } else if (!accentColor.startsWith('#')) {
+                        // If the color value is not a valid hex code or color name, use the default color
+                        accentColor = defaultColor;
+                    }
+
                     const mainStyle = `background-color: transparent; border: 6px solid ${accentColor}; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;`;
                     const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
@@ -82,14 +117,14 @@ module.exports = {
                     }
 
                     for (const [key, value] of Object.entries(info)) {
-                        if (!['original', 'scaled', 'title'].includes(key)) {
+                        if (!['original', 'scaled', 'title', 'color'].includes(key)) {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">${key}</span>${value}</span>`;
                         }
                     }
 
                     html += '</div></div>';
                     return html;
-                }                                                    
+                }                                        
             
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
