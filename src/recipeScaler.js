@@ -41,13 +41,13 @@ module.exports = {
                 function parseRecipeInfo(content) {
                     const match = content.match(/^\[(.+?)\]/);
                     if (!match) return null;
-
+                
                     const info = {};
                     match[1].split(',').forEach(pair => {
                         const [key, value] = pair.split('=').map(s => s.trim());
                         info[key] = value;
                     });
-
+                
                     return info;
                 }
 
@@ -57,7 +57,8 @@ module.exports = {
                  * @returns {string} HTML string for the recipe card.
                  */
                 function renderRecipeCard(info) {
-                    const accentColor = '#ff8b25f9';
+                    const defaultColor = '#ff8b25f9';
+                    const accentColor = info.color || defaultColor;
                     const mainStyle = `background-color: transparent; border: 6px solid ${accentColor}; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: inline-block; max-width: 100%;`;
                     const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
