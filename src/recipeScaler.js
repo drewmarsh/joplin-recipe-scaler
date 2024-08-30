@@ -76,14 +76,14 @@ module.exports = {
                     let accentColor = info.color ? info.color.toLowerCase() : defaultColor;
                 
                     const colorMap = {
-                        red: '#ff0000',     blue: '#0000ff',    green: '#008000',   yellow: '#ffff00',
-                        orange: '#ff8b25',  brick: '#a52a2a',   black: '#000000',
-                        white: '#ffffff',   gray: '#808080',    silver: '#c0c0c0',  gold: '#ffd700',
+                        red: '#ff0000',     blue: '#0000ff',    green: '#008000',   yellow: '#ffd700',
+                        orange: '#ff8b25',  brick: '#a52a2a',   black: '#000000',   sky: '#87ceeb',
+                        white: '#ffffff',   gray: '#808080',    silver: '#c0c0c0',  wheat: '#f5deb3',
                         navy: '#000080',    teal: '#008080',    maroon: '#800000',  olive: '#808000',
                         lime: '#00ff00',    aqua: '#00ffff',    turquoise: '#40e0d0', indigo: '#4b0082',
                         purple: '#ee82ee',  magenta: '#ff00ff', tan: '#d2b48c',     chocolate: '#d2691e',
                         coral: '#ff7f50',   crimson: '#dc143c', khaki: '#f0e68c',   salmon: '#fa8072',  
-                        pink: '#ffb6c1',    wheat: '#f5deb3',   sky: '#87ceeb'
+                        pink: '#ffb6c1'
                     };
                 
                     // Check if the color value is a color name, and replace it with the corresponding hex code if found
