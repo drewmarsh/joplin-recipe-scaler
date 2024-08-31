@@ -34,7 +34,6 @@ module.exports = {
                     });
                 }
 
-
                 /**
                  * Parses recipe information from the content string.
                  * @param {string} content - The content string to parse.
@@ -69,9 +68,8 @@ module.exports = {
                  */
                 function generateGradient(colors) {
                     const validColors = colors.map(color => getValidColor(color));
-                    if (validColors.length === 1) {
-                        const lighterColor = lightenColor(validColors[0], 30);
-                        return `linear-gradient(to right, ${validColors[0]}, ${lighterColor})`;
+                    if (validColors.length === 1) { // If the user only specifies one color, make the gradient solid
+                        return `linear-gradient(to right, ${validColors[0]}, ${validColors[0]})`;
                     }
                     return `linear-gradient(to right, ${validColors.join(', ')})`;
                 }
