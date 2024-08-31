@@ -52,7 +52,7 @@ module.exports = {
                 }
 
                 /**
-                 * Lightens a given hex color.
+                 * Lightens a given hex color. Helpful for creating a gradient when only one hex value is given.
                  * @param {string} color - The hex color to lighten.
                  * @param {number} percent - The percentage to lighten by (0-100).
                  * @returns {string} The lightened hex color.
@@ -67,14 +67,25 @@ module.exports = {
                 }
 
                 /**
-                 * Renders a recipe card HTML from recipe information.
-                 * @param {Object} info - The recipe information object.
-                 * @returns {string} HTML string for the recipe card.
+                 * Generates a CSS gradient string from given colors.
+                 * @param {string[]} colors - Array of color strings (hex or color names).
+                 * @returns {string} CSS gradient string.
                  */
-                function renderRecipeCard(info) {
-                    const defaultColor = '#ff8b25';
-                    let accentColor = info.color ? info.color.toLowerCase() : defaultColor;
-                
+                function generateGradient(colors) {
+                    const validColors = colors.map(color => getValidColor(color));
+                    if (validColors.length === 1) {
+                        const lighterColor = lightenColor(validColors[0], 30);
+                        return `linear-gradient(to right, ${validColors[0]}, ${lighterColor})`;
+                    }
+                    return `linear-gradient(to right, ${validColors.join(', ')})`;
+                }
+
+                /**
+                 * Validates and returns a proper color value.
+                 * @param {string} color - Color string to validate.
+                 * @returns {string} Valid color string.
+                 */
+                function getValidColor(color) {
                     const colorMap = {
                         red: '#ff0000',     blue: '#0000ff',    green: '#008000',   yellow: '#ffd700',
                         orange: '#ff8b25',  brick: '#a52a2a',   black: '#000000',   sky: '#87ceeb',
@@ -85,22 +96,32 @@ module.exports = {
                         coral: '#ff7f50',   crimson: '#dc143c', khaki: '#f0e68c',   salmon: '#fa8072',  
                         pink: '#ffb6c1'
                     };
-                
-                    // Check if the color value is a color name, and replace it with the corresponding hex code if found
-                    if (colorMap[accentColor]) {
-                        accentColor = colorMap[accentColor];
-                    } else if (!accentColor.startsWith('#')) {
-                        // If the color value is not a valid hex code or color name, use the default color
-                        accentColor = defaultColor;
-                    }
 
-                    // Create a lighter version of the accent color for the gradient
-                    const lighterColor = lightenColor(accentColor, 30);
+                    color = color.toLowerCase().trim();
+                    if (colorMap[color]) {
+                        return colorMap[color];
+                    } else if (color.match(/^#[0-9A-Fa-f]{6}$/)) {
+                        return color;
+                    }
+                    return '#ff8b25'; // Default color if invalid
+                }
+
+                /**
+                 * Renders a recipe card HTML from recipe information.
+                 * @param {Object} info - The recipe information object.
+                 * @returns {string} HTML string for the recipe card.
+                 */
+                function renderRecipeCard(info) {
+                    const defaultColor = '#ff8b25';
+                    let colors = info.color ? info.color.split('-') : [defaultColor];
+                    
+                    const gradientString = generateGradient(colors);
+                    const primaryColor = getValidColor(colors[0]);
 
                     const mainStyle = `
                         background-color: transparent;
                         border: 6px solid;
-                        border-image: linear-gradient(to right, ${accentColor}, ${lighterColor}) 1;
+                        border-image: ${gradientString} 1;
                         border-radius: 8px;
                         padding: 20px;
                         margin-bottom: 20px;
@@ -111,7 +132,7 @@ module.exports = {
                     const titleStyle = 'font-size: 32px; margin-top: -5px; margin-bottom: 5px; border-bottom: none;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
                     const pairStyle = 'white-space: nowrap; display: inline-block;';
-                    const labelStyle = `color: ${accentColor}; font-weight: bold; margin-right: 10px;`;
+                    const labelStyle = `color: ${primaryColor}; font-weight: bold; margin-right: 10px;`;
 
                     let html = `<div style="${mainStyle}">`;
 
@@ -137,7 +158,7 @@ module.exports = {
 
                     html += '</div></div>';
                     return html;
-                }                                        
+                }                             
             
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
