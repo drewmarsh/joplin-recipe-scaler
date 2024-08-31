@@ -43,9 +43,18 @@ module.exports = {
                     if (!match) return null;
                 
                     const info = {};
-                    match[1].split(',').forEach(pair => {
-                        const [key, value] = pair.split('=').map(s => s.trim());
-                        info[key] = value;
+                    const pairs = match[1].split(',').map(s => s.trim());
+                    
+                    pairs.forEach(pair => {
+                        const [key, ...valueParts] = pair.split('=').map(s => s.trim());
+                        const value = valueParts.join('='); // Rejoin in case the value contains '='
+                        
+                        if (key === 'chip') {
+                            if (!info.chips) info.chips = [];
+                            info.chips.push(value);
+                        } else {
+                            info[key] = value;
+                        }
                     });
                 
                     return info;
@@ -133,6 +142,16 @@ module.exports = {
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
                     const pairStyle = 'white-space: nowrap; display: inline-block;';
                     const labelStyle = `color: ${primaryColor}; font-weight: bold; margin-right: 10px;`;
+                    const chipStyle = `
+                        display: inline-block;
+                        background-color: ${primaryColor};
+                        color: white;
+                        padding: 2px 8px;
+                        border-radius: 12px;
+                        margin-right: 5px;
+                        margin-bottom: 5px;
+                        font-size: 0.9em;
+                    `;
 
                     let html = `<div style="${mainStyle}">`;
 
@@ -151,12 +170,22 @@ module.exports = {
                     }
 
                     for (const [key, value] of Object.entries(info)) {
-                        if (!['original', 'scaled', 'title', 'color'].includes(key)) {
+                        if (!['original', 'scaled', 'title', 'color', 'chips'].includes(key)) {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">${key}</span>${value}</span>`;
                         }
                     }
 
-                    html += '</div></div>';
+                    html += '</div>';
+
+                    if (info.chips && info.chips.length > 0) {
+                        html += `<div style="margin-top: 10px;">`;
+                        info.chips.forEach(chip => {
+                            html += `<span style="${chipStyle}">${chip.trim()}</span>`;
+                        });
+                        html += '</div>';
+                    }
+
+                    html += '</div>';
                     return html;
                 }                             
             
