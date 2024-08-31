@@ -116,6 +116,29 @@ module.exports = {
                 }
 
                 /**
+                 * Calculates the inverse color of a given hex color.
+                 * @param {string} hex - The hex color to invert.
+                 * @returns {string} The inverted hex color.
+                 */
+                function invertColor(hex) {
+                    // Remove the hash if it's there
+                    hex = hex.replace('#', '');
+                    
+                    // Convert to RGB
+                    let r = parseInt(hex.substr(0, 2), 16);
+                    let g = parseInt(hex.substr(2, 2), 16);
+                    let b = parseInt(hex.substr(4, 2), 16);
+                    
+                    // Invert the colors
+                    r = 255 - r;
+                    g = 255 - g;
+                    b = 255 - b;
+                    
+                    // Convert back to hex
+                    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+                }
+
+                /**
                  * Renders a recipe card HTML from recipe information.
                  * @param {Object} info - The recipe information object.
                  * @returns {string} HTML string for the recipe card.
@@ -126,6 +149,7 @@ module.exports = {
                     
                     const gradientString = generateGradient(colors);
                     const primaryColor = getValidColor(colors[0]);
+                    const inverseColor = invertColor(primaryColor);
 
                     const mainStyle = `
                         background-color: transparent;
@@ -144,16 +168,16 @@ module.exports = {
                     const pairStyle = 'white-space: nowrap; display: inline-block; margin-left: 5px; margin-right: 5px;';
                     
                     const chipStyle = `
-                        display: inline-block;
-                        background-color: ${primaryColor};
-                        color: white;
-                        padding: 2px 8px;
-                        border-radius: 12px;
-                        margin-top: 5px;
-                        margin-bottom: 5px;
-                        margin-right: 5px;
-                        margin-left: 5px;
-                        font-size: 0.9em;
+                    display: inline-block;
+                    background-color: ${primaryColor};
+                    padding: 2px 8px;
+                    border-radius: 12px;
+                    margin: 5px;
+                    font-size: 0.9em;
+                    `;
+
+                    const chipTextStyle = `
+                        color: ${inverseColor};
                     `;
 
                     let html = `<div style="${mainStyle}">`;
@@ -183,10 +207,14 @@ module.exports = {
                     if (info.chips && info.chips.length > 0) {
                         html += `<div style="margin-top: 10px;">`;
                         info.chips.forEach(chip => {
-                            html += `<span style="${chipStyle}">${chip.trim()}</span>`;
+                            html += `
+                                <span style="${chipStyle}">
+                                    <span style="${chipTextStyle}">${chip.trim()}</span>
+                                </span>
+                            `;
                         });
                         html += '</div>';
-                    }
+                    }         
 
                     html += '</div>';
                     return html;
