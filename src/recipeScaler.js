@@ -108,7 +108,7 @@ module.exports = {
                         display: inline-block;
                         max-width: 100%;
                     `;
-                    const titleStyle = 'font-size: 32px; margin-bottom: 5px; border-bottom: none; padding-bottom: 10px;';
+                    const titleStyle = 'font-size: 32px; margin-top: -5px; margin-bottom: 5px; border-bottom: none;';
                     const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
                     const pairStyle = 'white-space: nowrap; display: inline-block;';
                     const labelStyle = `color: ${accentColor}; font-weight: bold; margin-right: 10px;`;
