@@ -138,18 +138,21 @@ module.exports = {
                         display: inline-block;
                         max-width: 100%;
                     `;
-                    const titleStyle = 'font-size: 32px; margin-top: -5px; margin-bottom: 5px; border-bottom: none;';
-                    const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
-                    const pairStyle = 'white-space: nowrap; display: inline-block;';
+                    const titleStyle = 'font-size: 32px; border-bottom: none; margin-top: -5px; margin-bottom: 5px;';
                     const labelStyle = `color: ${primaryColor}; font-weight: bold; margin-right: 10px;`;
+                    const detailsStyle = 'display: flex; flex-wrap: wrap; gap: 12px;';
+                    const pairStyle = 'white-space: nowrap; display: inline-block; margin-left: 5px; margin-right: 5px;';
+                    
                     const chipStyle = `
                         display: inline-block;
                         background-color: ${primaryColor};
                         color: white;
                         padding: 2px 8px;
                         border-radius: 12px;
-                        margin-right: 5px;
+                        margin-top: 5px;
                         margin-bottom: 5px;
+                        margin-right: 5px;
+                        margin-left: 5px;
                         font-size: 0.9em;
                     `;
 
