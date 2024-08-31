@@ -23,15 +23,17 @@ module.exports = {
                 }
 
                 /**
-                 * Converts all text fractions in a string to Unicode fractions.
-                 * @param {string} amount - The string containing fractions to convert.
-                 * @returns {string} The string with Unicode fractions.
+                 * Converts all text fractions to Unicode fractions.
+                 * @param {string} content - The content string to convert.
+                 * @returns {string} The content with Unicode fractions.
                  */
-                function convertToUnicodeFraction(amount) {
-                    return amount.replace(/(\d+)\/(\d+)/g, (match, numerator, denominator) => {
-                        return textFractionToUnicode(match) || match;
+                function convertAllFractionsToUnicode(content) {
+                    return content.replace(/(\d+)?[-\s]?(\d+)\/(\d+)/g, (match, whole, numerator, denominator) => {
+                        const fractionPart = textFractionToUnicode(`${numerator}/${denominator}`);
+                        return whole ? `${whole} ${fractionPart}` : fractionPart;
                     });
                 }
+
 
                 /**
                  * Parses recipe information from the content string.
@@ -271,21 +273,19 @@ module.exports = {
                     let content = tokens[idx].content;
                     let originalContent = content;
 
-                    /**
-                     * Cleans up the content by handling scaled amounts.
-                     * @param {string} content - The content to clean up.
-                     * @returns {string} The cleaned up content.
-                     */
                     function cleanUpContent(content) {
                         // Handle scaled amounts in curly braces
                         content = content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, original, scaled) => {
-                            return scaled || original;
+                            return convertAllFractionsToUnicode(scaled || original);
                         });
 
                         // Handle scaled amounts in angle brackets
                         content = content.replace(/<(\d+(?:\.\d+)?(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, original, scaled) => {
-                            return scaled || original;
+                            return convertAllFractionsToUnicode(scaled || original);
                         });
+
+                        // Convert remaining fractions
+                        content = convertAllFractionsToUnicode(content);
 
                         return content;
                     }
