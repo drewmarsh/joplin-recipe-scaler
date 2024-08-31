@@ -47,7 +47,7 @@ module.exports = {
                     
                     pairs.forEach(pair => {
                         const [key, ...valueParts] = pair.split('=').map(s => s.trim());
-                        const value = valueParts.join('='); // Rejoin in case the value contains '='
+                        const value = valueParts.join('=');
                         
                         if (key === 'chip') {
                             if (!info.chips) info.chips = [];
@@ -58,21 +58,6 @@ module.exports = {
                     });
                 
                     return info;
-                }
-
-                /**
-                 * Lightens a given hex color. Helpful for creating a gradient when only one hex value is given.
-                 * @param {string} color - The hex color to lighten.
-                 * @param {number} percent - The percentage to lighten by (0-100).
-                 * @returns {string} The lightened hex color.
-                 */
-                function lightenColor(color, percent) {
-                    const num = parseInt(color.replace("#",""), 16),
-                          amt = Math.round(2.55 * percent),
-                          R = (num >> 16) + amt,
-                          G = (num >> 8 & 0x00FF) + amt,
-                          B = (num & 0x0000FF) + amt;
-                    return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
                 }
 
                 /**
@@ -116,26 +101,72 @@ module.exports = {
                 }
 
                 /**
-                 * Calculates the inverse color of a given hex color.
-                 * @param {string} hex - The hex color to invert.
-                 * @returns {string} The inverted hex color.
+                 * Lightens a given hex color.
+                 * @param {string} color - The hex color to lighten.
+                 * @param {number} percent - The percentage to lighten by (0-100).
+                 * @returns {string} The lightened hex color.
                  */
-                function invertColor(hex) {
-                    // Remove the hash if it's there
-                    hex = hex.replace('#', '');
-                    
-                    // Convert to RGB
-                    let r = parseInt(hex.substr(0, 2), 16);
-                    let g = parseInt(hex.substr(2, 2), 16);
-                    let b = parseInt(hex.substr(4, 2), 16);
-                    
-                    // Invert the colors
-                    r = 255 - r;
-                    g = 255 - g;
-                    b = 255 - b;
-                    
-                    // Convert back to hex
-                    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+                function lightenColor(color, percent) {
+                    const num = parseInt(color.replace("#",""), 16),
+                          amt = Math.round(2.55 * percent),
+                          R = (num >> 16) + amt,
+                          G = (num >> 8 & 0x00FF) + amt,
+                          B = (num & 0x0000FF) + amt;
+                    return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+                }
+
+                /**
+                 * Converts a hex color to RGB values.
+                 * @param {string} hex - The hex color to convert.
+                 * @returns {Object} An object with r, g, and b properties.
+                 */
+                function hexToRgb(hex) {
+                    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+                    hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+                    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                    return result ? {
+                        r: parseInt(result[1], 16),
+                        g: parseInt(result[2], 16),
+                        b: parseInt(result[3], 16)
+                    } : null;
+                }
+
+                /**
+                 * Calculates the relative luminance of a color.
+                 * @param {Object} rgb - An object with r, g, and b properties.
+                 * @returns {number} The relative luminance value.
+                 */
+                function calculateLuminance(rgb) {
+                    const a = [rgb.r, rgb.g, rgb.b].map(v => {
+                        v /= 255;
+                        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+                    });
+                    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+                }
+
+                /**
+                 * Calculates the contrast ratio between two colors.
+                 * @param {string} color1 - The first color in hex format.
+                 * @param {string} color2 - The second color in hex format.
+                 * @returns {number} The contrast ratio.
+                 */
+                function getContrastRatio(color1, color2) {
+                    const lum1 = calculateLuminance(hexToRgb(color1));
+                    const lum2 = calculateLuminance(hexToRgb(color2));
+                    const brightest = Math.max(lum1, lum2);
+                    const darkest = Math.min(lum1, lum2);
+                    return (brightest + 0.05) / (darkest + 0.05);
+                }
+
+                /**
+                 * Determines whether to use black or white text based on the background color.
+                 * @param {string} bgColor - The background color in hex format.
+                 * @returns {string} The text color ('black' or 'white').
+                 */
+                function getTextColor(bgColor) {
+                    const contrastWithBlack = getContrastRatio(bgColor, '#000000');
+                    const contrastWithWhite = getContrastRatio(bgColor, '#FFFFFF');
+                    return contrastWithWhite > contrastWithBlack ? '#FFFFFF' : '#000000';
                 }
 
                 /**
@@ -149,7 +180,7 @@ module.exports = {
                     
                     const gradientString = generateGradient(colors);
                     const primaryColor = getValidColor(colors[0]);
-                    const inverseColor = invertColor(primaryColor);
+                    const textColor = getTextColor(primaryColor);
 
                     const mainStyle = `
                         background-color: transparent;
@@ -177,7 +208,7 @@ module.exports = {
                     `;
 
                     const chipTextStyle = `
-                        color: ${inverseColor};
+                        color: ${textColor};
                         font-weight: bold;
                     `;
 
@@ -219,8 +250,8 @@ module.exports = {
 
                     html += '</div>';
                     return html;
-                }                             
-            
+                }
+                                             
                 markdownIt.renderer.rules.text = function(tokens, idx, options, env, self) {
                     if (idx === 0) {
                         const recipeInfo = parseRecipeInfo(tokens[idx].content);
@@ -240,14 +271,18 @@ module.exports = {
                     let content = tokens[idx].content;
                     let originalContent = content;
 
-                    // Function to clean up the display content
+                    /**
+                     * Cleans up the content by handling scaled amounts.
+                     * @param {string} content - The content to clean up.
+                     * @returns {string} The cleaned up content.
+                     */
                     function cleanUpContent(content) {
-                        // Handle scaled amounts in curly braces, including when values are equal
+                        // Handle scaled amounts in curly braces
                         content = content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, original, scaled) => {
                             return scaled || original;
                         });
 
-                        // Handle scaled amounts in angle brackets, including when values are equal
+                        // Handle scaled amounts in angle brackets
                         content = content.replace(/<(\d+(?:\.\d+)?(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, original, scaled) => {
                             return scaled || original;
                         });
@@ -258,7 +293,6 @@ module.exports = {
                     let cleanedContent = cleanUpContent(content);
 
                     if (cleanedContent !== content) {
-                        // If the content was cleaned up, wrap it in joplin-editable
                         return `<div class="joplin-editable">
                             <pre class="joplin-source" data-joplin-language="markdown" data-joplin-source-open="" data-joplin-source-close="">${markdownIt.utils.escapeHtml(originalContent)}</pre>
                             ${cleanedContent}
