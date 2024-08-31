@@ -168,16 +168,17 @@ module.exports = {
                     const pairStyle = 'white-space: nowrap; display: inline-block; margin-left: 5px; margin-right: 5px;';
                     
                     const chipStyle = `
-                    display: inline-block;
-                    background-color: ${primaryColor};
-                    padding: 2px 8px;
-                    border-radius: 12px;
-                    margin: 5px;
-                    font-size: 0.9em;
+                        display: inline-block;
+                        background-color: ${primaryColor};
+                        padding: 2px 8px;
+                        border-radius: 12px;
+                        margin: 5px;
+                        font-size: 0.9em;
                     `;
 
                     const chipTextStyle = `
                         color: ${inverseColor};
+                        font-weight: bold;
                     `;
 
                     let html = `<div style="${mainStyle}">`;
