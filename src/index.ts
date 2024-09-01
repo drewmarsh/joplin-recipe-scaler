@@ -142,13 +142,8 @@ function scaleRecipeContent(content: string): string {
         lines[i] = scaleLineContent(lines[i], scaleFactor, showScaled);
     }
 
-    // Update the recipe info with new scaled value only if it's different from original
-    if (showScaled) {
-        recipeInfo.scaled = targetServing.toString();
-    } else {
-        // If not showing scaled, remove the 'scaled' property
-        delete recipeInfo.scaled;
-    }
+    // Always update the scaled value in the recipe info
+    recipeInfo.scaled = targetServing.toString();
 
     const newRecipeInfo = formatRecipeInfo(recipeInfo);
 
@@ -166,12 +161,12 @@ function scaleRecipeContent(content: string): string {
  * @returns {string} The scaled line content.
  */
 function scaleLineContent(line: string, scaleFactor: number, showScaled: boolean): string {
-    return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?|[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]))?\}/g, (match, originalAmount, scaledAmount) => {
-        const newAmount = evaluateAndScale(parseFloat(originalAmount), scaleFactor);
-        return showScaled ? `{${originalAmount}, ${newAmount}}` : `{${originalAmount}}`;
-    }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, originalAmount, scaledAmount) => {
-        const newAmount = scaleAndFormatFraction(originalAmount, scaleFactor);
-        return showScaled ? `<${originalAmount}, ${newAmount}>` : `<${originalAmount}>`;
+    return line.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, original, scaled) => {
+        const newAmount = evaluateAndScale(parseFloat(original), scaleFactor);
+        return (showScaled && newAmount !== original) ? `{${original}, ${newAmount}}` : `{${original}}`;
+    }).replace(/<([\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, original, scaled) => {
+        const newAmount = scaleAndFormatFraction(original, scaleFactor);
+        return (showScaled && newAmount !== original) ? `<${original}, ${newAmount}>` : `<${original}>`;
     });
 }
 
