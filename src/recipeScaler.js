@@ -46,18 +46,12 @@ module.exports = {
                     const info = {};
                     const pairs = match[1].split(',').map(s => s.trim());
                 
-                    const multiValueKeys = ['color', 'chip'];
-                
                     pairs.forEach(pair => {
                         const [key, ...valueParts] = pair.split('=').map(s => s.trim());
                         const value = valueParts.join('=');
                 
-                        if (multiValueKeys.includes(key)) {
-                            if (!info[key]) {
-                                info[key] = value;
-                            } else {
-                                info[key] += '+' + value;
-                            }
+                        if (key === 'chip') {
+                            info.chip = value; // Store the entire chip string
                         } else {
                             info[key] = value;
                         }
