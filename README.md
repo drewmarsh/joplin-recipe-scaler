@@ -13,7 +13,7 @@ The first step in using the scaling feature is to have a recipe card at the **to
 If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
 - ```[original=12, scaled=24]```
 
-This is the very minumum your recipe card will need to specify in order for the scaling feature to function. However, many more customization options are also available.
+This is the very minumum that your recipe card will need to specify in order for the scaling feature to function. However, many more customization options are also available.
 
 For the plugin to know what values to scale throughout your recipe, these values will need to be encapsulated in either curly braces ```{ }``` or angled brackets ```< >``` depending on the unit being scaled.
 
