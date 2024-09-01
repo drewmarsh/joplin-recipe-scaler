@@ -4,8 +4,31 @@
   </a>
 </p>
 
-# ⚖️ Features
-TODO: Add the list of features.
+# 🍽️ Features
+### ✨ Recipe Cards
+
+### ⚖️ Recipe Scaling
+The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
+
+If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
+- ```[original=12, scaled=24]```
+
+This is the very minumum your recipe card will need to specify in order for the scaling feature to function. However, many more customization options are also available.
+
+For the plugin to know what values to scale throughout your recipe, these values will need to be encapsulated in either curly braces ```{ }``` or angled brackets ```< >``` depending on the unit being scaled.
+
+For example, values that should be scaled decimally (grams, pounds, etc.) should be closed in ```{ }```. This could look like:
+- ```{15} grams honey```
+- ```{1.5} lbs of chicken breast```
+- ```Roll the dough into {12} even balls```
+
+For example, values that should be scaled fractionally (cups, teaspoons, tablespoons, etc.) should be closed in ```< >``` in the Markdown editor. The following formats are acceptable:
+- ```<9 ¾>``` teaspoons salt
+- ```<9 3/4>``` cups sugar
+- ```<9-3/4>``` tablespoons baking soda
+- ```<9>``` pints milk
+- ```<3/4>``` tablespoons butter
+- ```<¾>``` quart honey
 
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
