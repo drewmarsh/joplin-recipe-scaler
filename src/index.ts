@@ -145,11 +145,15 @@ function scaleRecipeContent(content: string): string {
     // Update the recipe info with new scaled value only if it's different from original
     if (showScaled) {
         recipeInfo.scaled = targetServing.toString();
+    } else {
+        // If not showing scaled, remove the 'scaled' property
+        delete recipeInfo.scaled;
     }
-    const newRecipeInfo = `[${formatRecipeInfo(recipeInfo)}]`;
+
+    const newRecipeInfo = formatRecipeInfo(recipeInfo);
 
     // Replace the first line (recipe info) with the updated version
-    lines[0] = newRecipeInfo;
+    lines[0] = `[${newRecipeInfo}]`;
 
     return lines.join('\n');
 }

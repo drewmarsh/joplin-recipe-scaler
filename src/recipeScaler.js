@@ -45,14 +45,13 @@ module.exports = {
                 
                     const info = {};
                     const pairs = match[1].split(',').map(s => s.trim());
-                    
+                
                     pairs.forEach(pair => {
                         const [key, ...valueParts] = pair.split('=').map(s => s.trim());
                         const value = valueParts.join('=');
-                        
+                
                         if (key === 'chip') {
-                            if (!info.chips) info.chips = [];
-                            info.chips.push(value);
+                            info.chip = value; // Store the entire chip string
                         } else {
                             info[key] = value;
                         }
@@ -176,12 +175,12 @@ module.exports = {
                  */
                 function renderRecipeCard(info) {
                     const defaultColor = '#ff8b25';
-                    let colors = info.color ? info.color.split('-') : [defaultColor];
+                    let colors = info.color ? info.color.split('+') : [defaultColor];
                     
                     const gradientString = generateGradient(colors);
                     const primaryColor = getValidColor(colors[0]);
                     const textColor = getTextColor(primaryColor);
-
+                
                     const mainStyle = `
                         background-color: transparent;
                         border: 6px solid;
@@ -206,18 +205,18 @@ module.exports = {
                         margin: 5px;
                         font-size: 0.9em;
                     `;
-
+                
                     const chipTextStyle = `
                         color: ${textColor};
                         font-weight: bold;
                     `;
-
+                
                     let html = `<div style="${mainStyle}">`;
-
+                
                     if (info.title) {
                         html += `<h2 style="${titleStyle}">${info.title}</h2>`;
                     }
-
+                
                     html += `<div style="${detailsStyle}">`;
                     if (info.original) {
                         if (info.scaled && info.original !== info.scaled) {
@@ -227,18 +226,18 @@ module.exports = {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">servings</span>${info.original}</span>`;
                         }
                     }
-
+                
                     for (const [key, value] of Object.entries(info)) {
-                        if (!['original', 'scaled', 'title', 'color', 'chips'].includes(key)) {
+                        if (!['original', 'scaled', 'title', 'color', 'chip'].includes(key)) {
                             html += `<span style="${pairStyle}"><span style="${labelStyle}">${key}</span>${value}</span>`;
                         }
                     }
-
+                
                     html += '</div>';
-
-                    if (info.chips && info.chips.length > 0) {
+                
+                    if (info.chip) {
                         html += `<div style="margin-top: 10px;">`;
-                        info.chips.forEach(chip => {
+                        info.chip.split('+').forEach(chip => {
                             html += `
                                 <span style="${chipStyle}">
                                     <span style="${chipTextStyle}">${chip.trim()}</span>
@@ -246,8 +245,8 @@ module.exports = {
                             `;
                         });
                         html += '</div>';
-                    }         
-
+                    }
+                
                     html += '</div>';
                     return html;
                 }
