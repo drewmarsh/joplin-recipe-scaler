@@ -17,12 +17,12 @@ This is the very minumum that your recipe card will need to specify in order for
 
 For the plugin to know what values to scale throughout your recipe, these values will need to be encapsulated in either curly braces ```{ }``` or angled brackets ```< >``` depending on the unit being scaled.
 
-For example, values that should be scaled decimally (grams, pounds, ounces...) should be closed in curly braces ```{ }```. This could look like:
+For example, values that should be scaled decimally (grams, pounds, ounces) should be closed between curly braces ```{ }```. This could look like:
 - ```{15} grams honey```
 - ```{1.5} lbs of chicken breast```
 - ```{8} ounces of shredded mozzerlla```
 
-For example, values that should be scaled fractionally (cups, teaspoons, tablespoons...) should be closed in angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
+For example, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
 - ```<9 ¾>``` teaspoons salt
 - ```<9 3/4>``` cups sugar
 - ```<9-3/4>``` tablespoons baking soda
