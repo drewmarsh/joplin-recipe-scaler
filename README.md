@@ -5,8 +5,9 @@
 </p>
 
 # 🍽️ Features
+<a name="recipe-cards"></a>
 ## ✨ Recipe Cards
-Recipe cards can be used to efficently display recipe information in as many beautiful and highly-customizable sections of information as you desire.
+Recipe cards can be used to efficiently display recipe information in as many beautiful and highly-customizable sections of information as you desire.
 
 These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different **attributes** that tell the plugin how you want the card to behave.
 
@@ -22,7 +23,7 @@ The available **attributes** are as listed below:
 
 - #### ```original=``` and ```scaled=```
 
-  - These **attributes** should be only used in one recipe card per note and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the recipe scaling feature, these **attributes**  can be ommited from the note entirely.
+  - These **attributes** should be only used in one recipe card per note and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the recipe scaling feature, these **attributes**  can be omitted from the note entirely.
 
 - #### ```label= value``` pairs
 
@@ -54,14 +55,14 @@ The first step in using the scaling feature is to have a recipe card at the **to
 If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
 - ```[card, original= 12, scaled= 24,]```
 
-This is the very minumum that your recipe card will need to specify in order for the scaling feature to function. However, [many more customization options are also available](#✨-recipe-cards).
+This is the very minimum that your recipe card will need to specify in order for the scaling feature to function. However, [many more customization options are also available](#recipe-cards).
 
 For the plugin to know what values to scale throughout your recipe, these values will need to be encapsulated in either curly braces ```{ }``` or angled brackets ```< >``` depending on the unit being scaled.
 
 For example, values that should be scaled decimally (grams, pounds, ounces) should be closed between curly braces ```{ }``` in the Markdown editor. This could look like:
 - ```{15} grams honey```
-- ```{2.5}lbs of chicken breast or rougly {6} breasts```
-- ```{8} ounces of shredded mozzerlla```
+- ```{2.5}lbs of chicken breast or roughly {6} breasts```
+- ```{8} ounces of shredded mozzarella```
 
 Alternatively, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
 - ```<9 ¾>``` teaspoons salt
