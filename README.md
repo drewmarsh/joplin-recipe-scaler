@@ -5,6 +5,8 @@
 </p>
 
 # 🍽️ Features
+<br>
+
 <a name="recipe-cards"></a>
 # ✨ Recipe Cards
 Recipe cards can be used to efficiently display recipe information in as many beautiful and highly-customizable cards as you desire.
@@ -49,6 +51,8 @@ And would come out rendered in the Rich Text Editor like this:
 
 Of course, the background of this card depends on your Joplin theme.
 
+<br>
+
 <a name="recipe-scaling"></a>
 # ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the *top* of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very *top* of your note is the only one that will enforce scaling logic.
@@ -72,6 +76,8 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<9>``` pints milk
 - ```<3/4>``` tablespoons butter
 - ```<¾>``` quart honey
+
+<br>
 
 #  📜 Example Note
 #### Markdown:
@@ -113,6 +119,8 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 
 <img src="https://github.com/user-attachments/assets/f5e0ce5e-5339-4f8e-8340-8a62f300cf28" width="700">
 
+<br>
+
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
 
@@ -123,6 +131,8 @@ The plugin is built using Webpack, which creates the compiled code in `/dist`. A
 To build the plugin, simply run `npm run dist`.
 
 If this returns an error, you likely need to first install Webpack globally with `npm install -g webpack`.
+
+<br>
 
 # 🧪 Testing the plugin in Joplin dev mode
 
