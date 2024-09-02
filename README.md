@@ -45,7 +45,7 @@ An example of a recipe card that utilizes each and every one of the above **attr
 
 And would come out rendered in the Rich Text Editor like this:
 
-![image](https://github.com/user-attachments/assets/70bab808-de39-4db2-a660-ed314d6d6953)
+![example_recipe-card+border](https://github.com/user-attachments/assets/5879b75d-92fc-4a63-b2d3-f4793026a677)
 
 Of course, the background of this card depends on your Joplin theme.
 
@@ -111,7 +111,7 @@ Markdown:
 ```
 Rich Text Editor:
 
-<img src="https://github.com/user-attachments/assets/781cf009-84af-4e7c-b629-c4a61d45e2c1" width="700">
+<img src="https://github.com/user-attachments/assets/f5e0ce5e-5339-4f8e-8340-8a62f300cf28" width="700">
 
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
