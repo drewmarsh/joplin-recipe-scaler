@@ -13,11 +13,15 @@ Recipe cards are encapsulated between square brackets ```[ ]``` in the Markdown 
 The available ```attributes``` are as listed below:
 
 ```
-original
-scaled
-title
-color
-chip
+[original= 12,
+
+scaled= 24,
+
+title= Example Title,
+
+color= #hex_code,
+
+chip= Example Chip]
 ```
 
 ### ⚖️ Recipe Scaling
