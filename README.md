@@ -45,7 +45,7 @@ An example of a recipe card that utilizes each and every one of the above **attr
 
 And would come out rendered in the Rich Text Editor like this:
 
-![example_recipe-card+border](https://github.com/user-attachments/assets/5879b75d-92fc-4a63-b2d3-f4793026a677)
+![example_recipe-card+border](https://github.com/user-attachments/assets/eba327ce-4c56-4316-8b5f-869e004caec7)
 
 Of course, the background of this card depends on your Joplin theme.
 
@@ -74,7 +74,7 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<¾>``` quart honey
 
 #  📜 Example Note
-Markdown:
+#### Markdown:
 ``` 
 [card, original=6, scaled=12, title=🌯 Savory Chicken Burritos, calories=620, protein=52g, carbs=79g, fat=17g, color=orange+brick, chip=Freezable+High Protein]
 
@@ -109,7 +109,7 @@ Markdown:
 - Ideally, you'd defrost overnight and then heat for ~1 minute on both sides
 - If heating from frozen then heat for ~2 minutes and then flip the burrito and cut it in half before heating for another ~2 minutes
 ```
-Rich Text Editor:
+#### Rich Text Editor:
 
 <img src="https://github.com/user-attachments/assets/f5e0ce5e-5339-4f8e-8340-8a62f300cf28" width="700">
 
