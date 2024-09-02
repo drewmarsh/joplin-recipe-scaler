@@ -6,7 +6,7 @@
 
 # 🍽️ Features
 <a name="recipe-cards"></a>
-## ✨ Recipe Cards
+# ✨ Recipe Cards
 Recipe cards can be used to efficiently display recipe information in as many beautiful and highly-customizable cards as you desire.
 
 These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different **attributes** that tell the plugin how you want the card to behave.
@@ -50,7 +50,7 @@ And would come out rendered in the Rich Text Editor like this:
 Of course, the background of this card depends on your Joplin theme.
 
 <a name="recipe-scaling"></a>
-## ⚖️ Recipe Scaling
+# ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the *top* of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very *top* of your note is the only one that will enforce scaling logic.
 
 If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
