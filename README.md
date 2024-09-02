@@ -7,7 +7,7 @@
 # 🍽️ Features
 <a name="recipe-cards"></a>
 ## ✨ Recipe Cards
-Recipe cards can be used to efficiently display recipe information in as many beautiful and highly-customizable sections of information as you desire.
+Recipe cards can be used to efficiently display recipe information in as many beautiful and highly-customizable cards as you desire.
 
 These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different **attributes** that tell the plugin how you want the card to behave.
 
