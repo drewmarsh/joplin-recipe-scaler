@@ -30,7 +30,7 @@ module.exports = {
                         white: '#ffffff', gray: '#808080', silver: '#c0c0c0', wheat: '#f5deb3',
                         navy: '#000080', teal: '#008080', maroon: '#800000', olive: '#808000',
                         lime: '#00ff00', aqua: '#00ffff', turquoise: '#40e0d0', indigo: '#4b0082',
-                        purple: '#ee82ee', magenta: '#ff00ff', tan: '#d2b48c', chocolate: '#d2691e',
+                        purple: '#ee82ee', magenta: '#ff00ff', tan: '#f4ba86', chocolate: '#d2691e',
                         coral: '#ff7f50', crimson: '#dc143c', khaki: '#f0e68c', salmon: '#fa8072',  
                         pink: '#ffb6c1'
                     },
@@ -192,7 +192,7 @@ module.exports = {
                         return isCard ? info : null;
                     }
                 };
-                
+
                 /**
                  * Recipe card renderer
                  */
