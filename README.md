@@ -5,7 +5,7 @@
 </p>
 <a name="preview"></a>
 
-# 🍽️ The 5 main courses
+# 🍽️ The 5 Main Courses
 ### [🔎 Preview](#preview)
 ### [✨ Recipe Cards](#recipe-cards)
 ### [⚖️ Recipe Scaling](#recipe-scaling)
