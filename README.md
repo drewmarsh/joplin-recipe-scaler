@@ -6,6 +6,19 @@
 
 # 🍽️ Features
 ### ✨ Recipe Cards
+Recipe cards can be used to efficently display all of your recipe information in as many beautiful and highly-customizable sections of information as you desire.
+
+Recipe cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different ```attributes``` that tell the plugin how you want the card to behave.
+
+The available ```attributes``` are as listed below:
+
+```
+original
+scaled
+title
+color
+chip
+```
 
 ### ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
