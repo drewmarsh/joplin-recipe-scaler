@@ -22,7 +22,7 @@ For example, values that should be scaled decimally (grams, pounds, ounces) shou
 - ```{1.5} lbs of chicken breast```
 - ```{8} ounces of shredded mozzerlla```
 
-For example, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
+Alternatively, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
 - ```<9 ¾>``` teaspoons salt
 - ```<9 3/4>``` cups sugar
 - ```<9-3/4>``` tablespoons baking soda
