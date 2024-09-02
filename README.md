@@ -91,6 +91,7 @@ See the [example note](#example-note) for a visual of how this feature works.
 
 <a name="example-note"></a>
 #  📜 Example Note
+This example demonstrates how to use recipe cards and scaling in a real-world recipe note. It showcases the Markdown syntax and the resulting rendered output in the Rich Text Editor.
 #### Markdown:
 ``` 
 [card, original=6, scaled=12, title=🌯 Savory Chicken Burritos, calories=620, protein=52g, carbs=79g, fat=17g, color=orange+brick, chip=Freezable+High Protein]
