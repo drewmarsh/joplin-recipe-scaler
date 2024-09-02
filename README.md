@@ -54,6 +54,7 @@ And would come out rendered in the Rich Text Editor like this:
 Of course, the background of this card depends on your Joplin theme.
 
 See the [example note](#example-note) for a visual of how this feature works.
+
 <br>
 
 <a name="recipe-scaling"></a>
