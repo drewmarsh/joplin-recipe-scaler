@@ -6,25 +6,32 @@
 
 # 🍽️ Features
 ### ✨ Recipe Cards
-Recipe cards can be used to efficently display all of your recipe information in as many beautiful and highly-customizable sections of information as you desire.
+Recipe cards can be used to efficently display recipe information in as many beautiful and highly-customizable sections of information as you desire.
 
-These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different ```attributes``` that tell the plugin how you want the card to behave.
+These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different **attributes** that tell the plugin how you want the card to behave.
 
-The available ```attributes``` are as listed below:
+The available **attributes** are as listed below:
 
-```
-[card,
+- ### ```card```
 
-original= 12,
+  - Necessary to tell the plugin that you're trying to render a new recipe card. It is **not** necessary to set it equal to anything.
 
-scaled= 24,
+- ### ```original``` and ```scaled```
 
-title= Example Title,
+  - These **attributes** should be only used in one recipe card per note and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the recipe scaling feature, these **attributes**  can be ommited from the note entirely.
+ 
+- ### ```title```
 
-color= #hex_code,
+  - Adds a title to the recipe card.
 
-chip= Example Chip]
-```
+- ### ```color```
+
+  - Assigns color(s) to the recipe card. This can either be one solid value: ```color= red``` / ```color= #ff0000``` or you can make it a graident like this: ```color=red+white+blue```.
+
+- ### ```chip```
+
+  - Adds chip(s) to the recipe card. This can either be one chip: ```chip = Example Chip``` or multiple chips like this: ```chip= Chip 1+Chip 2+Chip 3``
+
 
 ### ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
