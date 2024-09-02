@@ -16,25 +16,29 @@ The available **attributes** are as listed below:
 
   - Necessary to tell the plugin that you're trying to render a new recipe card. It is **not** necessary to set it equal to anything.
 
-- #### ```title```
+- #### ```title=```
 
   - Adds a title to the recipe card.
 
-- #### ```original``` and ```scaled```
+- #### ```original=``` and ```scaled=```
 
   - These **attributes** should be only used in one recipe card per note and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the recipe scaling feature, these **attributes**  can be ommited from the note entirely.
 
-- #### ```chip```
+- #### ```label= value``` pairs
+
+  - This **attribute** is different from the rest as it's fully customizable. You don't actually write ```label``` or ```value```. Instead, you can write anything you want, such as: ```calories= 481```, ```protein= 51g```,  ```carbs= 62```, ```fat = 34g```, ```sugars= 2g```. These label/value pairs will be neatly organized in a list.
+
+- #### ```chip=```
 
   - Adds chip(s) to the recipe card. This can either be one chip: ```chip = Example Chip``` or multiple chips like this: ```chip= Chip 1+Chip 2+Chip 3``
 
-- #### ```color```
+- #### ```color=```
 
   - Assigns color(s) to the recipe card. This can either be one solid value: ```color= red``` / ```color= #ff0000``` or you can make it a graident like this: ```color= red+white+blue```.
 
 An example of a recipe card that utilizes each and every one of the above **attributes** would look like this:
 
-```[card, title=Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+ExampleChip2, color= orange+#f4ba86]```
+```[card, title=🍊 Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+Example Chip 2, color= orange+#f4ba86]```
 
 ### ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
