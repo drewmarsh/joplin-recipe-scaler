@@ -110,6 +110,7 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - If heating from frozen then heat for ~2 minutes and then flip the burrito and cut it in half before heating for another ~2 minutes
 ```
 <img src="https://github.com/user-attachments/assets/781cf009-84af-4e7c-b629-c4a61d45e2c1" width="700">
+
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
 
