@@ -183,8 +183,13 @@ function scaleLineContent(line: string, scaleFactor: number, showScaled: boolean
 function parseRecipeInfo(infoString: string): {[key: string]: string} {
     const info: {[key: string]: string} = {};
     infoString.split(',').forEach(pair => {
-        const [key, value] = pair.split('=').map(s => s.trim());
-        info[key] = value;
+        const parts = pair.split('=').map(s => s.trim());
+        if (parts.length === 1 && parts[0].toLowerCase() === 'card') {
+            info['card'] = '';
+        } else if (parts.length === 2) {
+            const [key, value] = parts;
+            info[key] = value;
+        }
     });
     return info;
 }
@@ -196,7 +201,7 @@ function parseRecipeInfo(infoString: string): {[key: string]: string} {
  */
 function formatRecipeInfo(info: {[key: string]: string}): string {
     return Object.entries(info)
-        .map(([key, value]) => `${key}=${value}`)
+        .map(([key, value]) => value === '' ? key : `${key}=${value}`)
         .join(', ');
 }
 

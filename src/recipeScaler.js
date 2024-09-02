@@ -163,7 +163,7 @@ module.exports = {
                     /**
                      * Parses recipe information from the content string.
                      * @param {string} content - The content string to parse.
-                     * @returns {Object|null} An object containing recipe info, or null if not found.
+                     * @returns {Object|null} An object containing recipe info, or null if not found or invalid.
                      */
                     parse: function(content) {
                         const match = content.match(/^\[(.+?)\]/);
@@ -171,22 +171,28 @@ module.exports = {
                     
                         const info = {};
                         const pairs = match[1].split(',').map(s => s.trim());
+                        let isCard = false;
                     
                         pairs.forEach(pair => {
-                            const [key, ...valueParts] = pair.split('=').map(s => s.trim());
-                            const value = valueParts.join('=');
-                    
-                            if (key === 'chip') {
-                                info.chip = value; // Store the entire chip string
+                            if (pair.toLowerCase() === 'card') {
+                                isCard = true;
                             } else {
-                                info[key] = value;
+                                const [key, ...valueParts] = pair.split('=').map(s => s.trim());
+                                const value = valueParts.join('=');
+                    
+                                if (key === 'chip') {
+                                    info.chip = value; // Store the entire chip string
+                                } else {
+                                    info[key] = value;
+                                }
                             }
                         });
                     
-                        return info;
+                        // Only return the info object if 'card' is present
+                        return isCard ? info : null;
                     }
                 };
-
+                
                 /**
                  * Recipe card renderer
                  */
