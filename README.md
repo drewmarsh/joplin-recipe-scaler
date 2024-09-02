@@ -45,7 +45,7 @@ An example of a recipe card that utilizes each and every one of the above **attr
 
 And would come out rendered in the Rich Text Editor like this:
 
-![image](https://github.com/user-attachments/assets/106c7b76-7f84-476e-a112-1f9d474ed175)
+![image](https://github.com/user-attachments/assets/1e152a6f-2d8c-4b27-bb0d-6b6f14086112)
 
 Of course, the background of this card depends on your Joplin theme.
 
