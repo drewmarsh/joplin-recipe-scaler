@@ -36,13 +36,11 @@ The available **attributes** are as listed below:
 
   - Assigns color(s) to the recipe card. This can either be one solid color: ```color= red``` / ```color= #ff0000``` or you can make it a gradient like this: ```color= red+white+blue```.
 
-<br><br>
+<br>
 
 An example of a recipe card that utilizes each and every one of the above **attributes** would look like this in the Markdown editor:
 
 ```[card, title=🍊 Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+Example Chip 2, color= orange+#f4ba86]```
-
-<br>
 
 And would come out rendered in the Rich Text Editor like this:
 
