@@ -53,6 +53,7 @@ And would come out rendered in the Rich Text Editor like this:
 
 Of course, the background of this card depends on your Joplin theme.
 
+See the [example note](#example-note) for a visual of how this feature works.
 <br>
 
 <a name="recipe-scaling"></a>
@@ -79,8 +80,10 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<3/4>``` tablespoons butter
 - ```<¾>``` quart honey
 
+See the [example note](#example-note) for a visual of how this feature works.
 <br>
 
+<a name="example-note"></a>
 #  📜 Example Note
 #### Markdown:
 ``` 
