@@ -34,7 +34,7 @@ The available **attributes** are as listed below:
 
 An example of a recipe card that utilizes each and every one of the above **attributes** would look like this:
 
-```[card, title=Example Title, original= 12, scaled= 24, example label = example value, chip= Example Chip 1+ExampleChip2, color= orange+#f4ba86]```
+```[card, title=Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+ExampleChip2, color= orange+#f4ba86]```
 
 ### ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
