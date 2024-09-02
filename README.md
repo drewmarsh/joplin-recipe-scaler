@@ -23,7 +23,7 @@ The available **attributes** are as listed below:
 
 - #### ```original=``` and ```scaled=```
 
-  - These **attributes** should be only used in one recipe card per note and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the [recipe scaling](#recipe-scaling) feature, these **attributes**  can be omitted from the note entirely.
+  - These **attributes** should be only used in *one recipe card per note* and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the [recipe scaling](#recipe-scaling) feature, these **attributes**  can be omitted from the note entirely.
 
 - #### ```label= value``` pairs
 
