@@ -30,7 +30,7 @@ The available **attributes** are as listed below:
 
 - #### ```chip=```
 
-  - Adds chip(s) to the recipe card. This can either be one chip: ```chip = Example Chip``` or multiple chips like this: ```chip= Chip 1+Chip 2+Chip 3``
+  - Adds chip(s) to the recipe card. This can either be one chip: ```chip = Example Chip``` or multiple chips like this: ```chip= Chip 1+Chip 2+Chip 3```
 
 - #### ```color=```
 
