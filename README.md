@@ -5,7 +5,7 @@
 </p>
 
 # 🍽️ Features
-### ✨ Recipe Cards
+## ✨ Recipe Cards
 Recipe cards can be used to efficently display recipe information in as many beautiful and highly-customizable sections of information as you desire.
 
 These cards are encapsulated between square brackets ```[ ]``` in the Markdown editor and can take in many different **attributes** that tell the plugin how you want the card to behave.
@@ -48,19 +48,19 @@ And would come out rendered in the Rich Text Editor like this:
 
 Of course, the background of this card depends on your Joplin theme.
 
-### ⚖️ Recipe Scaling
+## ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
 
 If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
 - ```[card, original= 12, scaled= 24,]```
 
-This is the very minumum that your recipe card will need to specify in order for the scaling feature to function. However, many more customization options are also available.
+This is the very minumum that your recipe card will need to specify in order for the scaling feature to function. However, [many more customization options are also available](recipecards).
 
 For the plugin to know what values to scale throughout your recipe, these values will need to be encapsulated in either curly braces ```{ }``` or angled brackets ```< >``` depending on the unit being scaled.
 
 For example, values that should be scaled decimally (grams, pounds, ounces) should be closed between curly braces ```{ }``` in the Markdown editor. This could look like:
 - ```{15} grams honey```
-- ```{2.5}lbs of chicken breast or rougly {5} to {7} breasts```
+- ```{2.5}lbs of chicken breast or rougly {6} breasts```
 - ```{8} ounces of shredded mozzerlla```
 
 Alternatively, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
