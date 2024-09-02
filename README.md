@@ -129,7 +129,7 @@ This example demonstrates how to use recipe cards and scaling in a real-world re
 ```
 #### Rich Text Editor:
 
-<img src="https://github.com/user-attachments/assets/f5e0ce5e-5339-4f8e-8340-8a62f300cf28" width="700">
+<img src="https://github.com/user-attachments/assets/a3f04f8c-345a-4a18-bb94-797d524e53db" width="700">
 
 <br>
 
