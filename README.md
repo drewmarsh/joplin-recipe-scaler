@@ -36,9 +36,15 @@ The available **attributes** are as listed below:
 
   - Assigns color(s) to the recipe card. This can either be one solid value: ```color= red``` / ```color= #ff0000``` or you can make it a graident like this: ```color= red+white+blue```.
 
-An example of a recipe card that utilizes each and every one of the above **attributes** would look like this:
+An example of a recipe card that utilizes each and every one of the above **attributes** would look like this in the Markdown editor:
 
 ```[card, title=🍊 Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+Example Chip 2, color= orange+#f4ba86]```
+
+And would come out rendered in the Rich Text Editor like this:
+
+![image](https://github.com/user-attachments/assets/106c7b76-7f84-476e-a112-1f9d474ed175)
+
+Of course, the background of this card depends on your Joplin theme.
 
 ### ⚖️ Recipe Scaling
 The first step in using the scaling feature is to have a recipe card at the **top** of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very **top** of your note is the only one that will enforce scaling logic.
