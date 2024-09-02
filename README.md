@@ -67,7 +67,7 @@ See the [example note](#example-note) for a visual of how this feature works.
 The first step in using the scaling feature is to have a recipe card at the *top* of your note that specifies your desired effect. While you can add as many recipe cards throughout your recipe as you want, the one at the very *top* of your note is the only one that will enforce scaling logic.
 
 If you have a recipe that originally made 12 cookies but you want to scale it to make 24, your recipe card would look like this:
-- ```[card, original= 12, scaled= 24,]```
+- ```[card, original= 12, scaled= 24]```
 
 This is the very minimum that your recipe card will need to specify in order for the scaling feature to function. However, [many more customization options are also available](#recipe-cards).
 
