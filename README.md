@@ -45,7 +45,7 @@ An example of a recipe card that utilizes each and every one of the above **attr
 
 And would come out rendered in the Rich Text Editor like this:
 
-![image](https://github.com/user-attachments/assets/1e152a6f-2d8c-4b27-bb0d-6b6f14086112)
+![image](https://github.com/user-attachments/assets/70bab808-de39-4db2-a660-ed314d6d6953)
 
 Of course, the background of this card depends on your Joplin theme.
 
@@ -109,6 +109,7 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - Ideally, you'd defrost overnight and then heat for ~1 minute on both sides
 - If heating from frozen then heat for ~2 minutes and then flip the burrito and cut it in half before heating for another ~2 minutes
 ```
+![example_savory-chicken-burritos](https://github.com/user-attachments/assets/781cf009-84af-4e7c-b629-c4a61d45e2c1)
 
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
