@@ -4,7 +4,9 @@
   </a>
 </p>
 
-# 🍽️ Features
+# 🍽️ Preview
+
+
 <br>
 
 <a name="recipe-cards"></a>
