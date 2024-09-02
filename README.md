@@ -19,7 +19,7 @@ For the plugin to know what values to scale throughout your recipe, these values
 
 For example, values that should be scaled decimally (grams, pounds, ounces) should be closed between curly braces ```{ }``` in the Markdown editor. This could look like:
 - ```{15} grams honey```
-- ```{1.5} lbs of chicken breast```
+- ```{1.5}lbs of chicken breast```
 - ```{8} ounces of shredded mozzerlla```
 
 Alternatively, values that should be scaled fractionally (cups, teaspoons, tablespoons) should be closed between angled brackets ```< >``` in the Markdown editor. The following formats are acceptable:
