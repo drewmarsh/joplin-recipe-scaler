@@ -50,11 +50,12 @@ The available **attributes** are as listed below:
 
 An example of a recipe card that utilizes each and every one of the above **attributes** would look like this in the Markdown editor:
 
-```[card, title=🍊 Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+Example Chip 2, color= orange+#f4ba86]```
+```[card, title=🍇 Example Title, original= 12, scaled= 24, example label 1 = example value 1, example label 2 = example value 2, chip= Example Chip 1+Example Chip 2, color= indigo+#ee82ee]```
 
 And would come out rendered in the Rich Text Editor like this:
 
-![example_recipe-card+border](https://github.com/user-attachments/assets/eba327ce-4c56-4316-8b5f-869e004caec7)
+![example_recipe-card+border](https://github.com/user-attachments/assets/5798fbeb-4be5-48ec-99d1-0d8cc702fd22)
+
 
 Of course, the background of this card depends on your Joplin theme.
 
