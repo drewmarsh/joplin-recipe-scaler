@@ -73,6 +73,43 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<3/4>``` tablespoons butter
 - ```<¾>``` quart honey
 
+#  📜 Example Note
+
+``` 
+[card, original=6, scaled=12, title=🌯 Savory Chicken Burritos, calories=620, protein=52g, carbs=79g, fat=17g, color=orange+brick, chip=Freezable+High Protein]
+
+**INGREDIENTS**
+
+- <6, 12> Large Tortillas (see above recipe)
+- {700, 1400} g of cooked chicken breast (roughly {3, 6} breasts), cubed
+- {8, 16} oz ({226, 452} g) part skim shredded mozzarella cheese
+- {4, 8} wedges of Laughing Cow Cream Cheese (Original)
+- {1, 2} lime or <1, 2> Tbsp lime juice concentrate
+- {1, 2} can tri-blend beans or beans of choice
+- {1, 2} can tomato sauce
+- {1, 2} bell pepper (yellow)
+- {1, 2} Jalapeño
+- Cilantro (optional)
+
+**INSTRUCTIONS**
+
+- [ ] Dice peppers
+- [ ] Cook peppers and beans in a bit of water to soften
+- [ ] Mix in tomato sauce and spices
+- [ ] Add in prepped chicken and both cheeses
+- [ ] Add lime juice if desired
+- [ ] Cool mixture in fridge for 20 minutes, uncovered
+- [ ] Evenly disperse mixture across {6, 12} large tortillas and fold
+- [ ] Store in freezer in parchment paper until ready to eat
+
+[💡= tip: Heat up the tortillas before rolling to reduce the chance of tearing, color=yellow+orange, card]
+
+**REHEATING**
+
+- Ideally, you'd defrost overnight and then heat for ~1 minute on both sides
+- If heating from frozen then heat for ~2 minutes and then flip the burrito and cut it in half before heating for another ~2 minutes
+```
+
 # 🛠️ Building the plugin
 #### 🛑 If you're not a developer then you can ignore everything below this line of text. Unless you're a rebel. In that case, I won't stop you. But seriously, stop looking.
 
