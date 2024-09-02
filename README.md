@@ -25,7 +25,7 @@ The available **attributes** are as listed below:
 
   - These **attributes** should be only used in *one recipe card per note* and the Markdown for this card should be at the **very top** of the note. They tell the plugin how many servings the original recipe made and how many servings you want to scale the recipe to. If you don't plan to use the [recipe scaling](#recipe-scaling) feature, these **attributes**  can be omitted from the note entirely.
 
-- #### ```label= value``` pairs
+- #### ```label= value```
 
   - This **attribute** is different from the rest as it's fully customizable. You don't actually write ```label``` or ```value```. Instead, you can write anything you want, such as: ```calories= 481```, ```protein= 51g```,  ```carbs= 62```, ```fat = 34g```, ```sugars= 2g```. These label/value pairs will be neatly organized in a list.
 
