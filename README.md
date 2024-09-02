@@ -34,7 +34,7 @@ The available **attributes** are as listed below:
 
 - #### ```color=```
 
-  - Assigns color(s) to the recipe card. This can either be one solid value: ```color= red``` / ```color= #ff0000``` or you can make it a graident like this: ```color= red+white+blue```.
+  - Assigns color(s) to the recipe card. This can either be one solid color: ```color= red``` / ```color= #ff0000``` or you can make it a graident like this: ```color= red+white+blue```.
 
 An example of a recipe card that utilizes each and every one of the above **attributes** would look like this in the Markdown editor:
 
