@@ -74,7 +74,7 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<¾>``` quart honey
 
 #  📜 Example Note
-
+Markdown:
 ``` 
 [card, original=6, scaled=12, title=🌯 Savory Chicken Burritos, calories=620, protein=52g, carbs=79g, fat=17g, color=orange+brick, chip=Freezable+High Protein]
 
@@ -109,6 +109,8 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - Ideally, you'd defrost overnight and then heat for ~1 minute on both sides
 - If heating from frozen then heat for ~2 minutes and then flip the burrito and cut it in half before heating for another ~2 minutes
 ```
+Rich Text Editor:
+
 <img src="https://github.com/user-attachments/assets/781cf009-84af-4e7c-b629-c4a61d45e2c1" width="700">
 
 # 🛠️ Building the plugin
