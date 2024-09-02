@@ -3,9 +3,14 @@
     <img src="https://github.com/user-attachments/assets/62b8d818-b382-4747-b312-a966bdf463c1" width="400" height="400">
   </a>
 </p>
+<a name="preview"></a>
 
-# 🍽️ Preview
-
+# 🍽️ The 5 main courses
+### [🔎 Preview](#preview)
+### [✨ Recipe Cards](#recipe-cards)
+### [⚖️ Recipe Scaling](#recipe-scaling)
+### [📜 Example Note](#example-note)
+### [🛠️ Contributing](#contributing)
 
 <br>
 
@@ -127,6 +132,7 @@ See the [example note](#example-note) for a visual of how this feature works.
 
 <br>
 
+<a name="contributing"></a>
 # 🛠️ Contributing
 #### 🚧 Building the plugin
 To help develop this plugin further then you'll need to know how to build the plugin once you make your changes.
