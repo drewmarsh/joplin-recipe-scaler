@@ -1,9 +1,11 @@
 <p align="center">
   <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
-    <img src="https://github.com/user-attachments/assets/62b8d818-b382-4747-b312-a966bdf463c1" width="400" height="400">
+    <img src="https://github.com/user-attachments/assets/62b8d818-b382-4747-b312-a966bdf463c1" width="325" height="325">
   </a>
 </p>
 <a name="preview"></a>
+
+![cherry-limeade-example](https://github.com/user-attachments/assets/1091476f-eccc-435e-a08b-ec88e0a46cef)
 
 # 🍽️ The 5 Courses
 ### [🔎 Preview](#preview)
