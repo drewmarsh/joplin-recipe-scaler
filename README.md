@@ -91,6 +91,8 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 - ```<3/4>``` tablespoons butter
 - ```<¾>``` quart honey
 
+After updating the ```original=```, ```scaled=```, or any values throughout your note, you have to click the ```gear icon``` on your toolbar to trigger the plugin to update the note accordingly.
+
 See the [example note](#example-note) for a visual of how this feature works.
 <br>
 
