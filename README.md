@@ -1,13 +1,13 @@
 <p align="center">
   <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
-    <img src="https://github.com/user-attachments/assets/62b8d818-b382-4747-b312-a966bdf463c1" width="325" height="325">
+    <img src="/preview/logo.svg" width="325" height="325" alt="Logo">
   </a>
 </p>
 <a name="preview"></a>
 
-![hawaiian-ice-example](https://github.com/user-attachments/assets/e9319210-0d32-499b-9d8b-23bc04f91647)
+![hawaiian-ice-example](/preview/hawaiian-ice-example.png)
 
-![cherry-limeade-example](https://github.com/user-attachments/assets/1091476f-eccc-435e-a08b-ec88e0a46cef)
+![cherry-limeade-example](/preview/cherry-limeade-example.png)
 
 # 🍽️ The 5 Courses
 ### [🔎 Preview](#preview)
@@ -58,7 +58,7 @@ An example of a recipe card that utilizes each and every one of the above **attr
 
 And would come out rendered in the Rich Text Editor like this:
 
-![example_recipe-card+border](https://github.com/user-attachments/assets/5798fbeb-4be5-48ec-99d1-0d8cc702fd22)
+![recipe-card+border_example](/preview/recipe-card+border_example.png)
 
 
 Of course, the background of this card depends on your Joplin theme.
@@ -134,7 +134,7 @@ This example demonstrates how to use the recipe card and recipe scaling features
 ```
 #### Rich Text Editor:
 
-<img src="https://github.com/user-attachments/assets/a3f04f8c-345a-4a18-bb94-797d524e53db" width="700">
+<img src="/preview/example-note+border.png" width="700" alt="Example Note">
 
 <br>
 
