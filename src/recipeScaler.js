@@ -384,21 +384,16 @@ module.exports = {
                             </div>` + defaultRender(tokens, idx, options, env, self);
                         }
                     }
-
+                
                     let content = tokens[idx].content;
-                    let originalContent = content;
-
                     let processedContent = ContentProcessor.process(content);
-
+                
                     if (processedContent !== content) {
-                        return `<div class="joplin-editable">
-                            <pre class="joplin-source" data-joplin-language="markdown" data-joplin-source-open="" data-joplin-source-close="">${markdownIt.utils.escapeHtml(originalContent)}</pre>
-                            ${processedContent}
-                        </div>`;
+                        return `<span class="joplin-editable"><span class="joplin-source" data-joplin-language="markdown" data-joplin-source-open="" data-joplin-source-close="">${markdownIt.utils.escapeHtml(content)}</span>${processedContent}</span>`;
                     }
-
+                
                     return defaultRender(tokens, idx, options, env, self);
-                };
+                };                
             },
             assets: function() {
                 return [];
