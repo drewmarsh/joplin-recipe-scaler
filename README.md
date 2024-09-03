@@ -5,6 +5,8 @@
 </p>
 <a name="preview"></a>
 
+![hawaiian-ice-example](https://github.com/user-attachments/assets/e9319210-0d32-499b-9d8b-23bc04f91647)
+
 ![cherry-limeade-example](https://github.com/user-attachments/assets/1091476f-eccc-435e-a08b-ec88e0a46cef)
 
 # 🍽️ The 5 Courses
