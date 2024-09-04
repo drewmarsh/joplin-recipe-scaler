@@ -1,3 +1,7 @@
+<!---
+Copyright (c) 2024 Drew Marshall
+--->
+
 <p align="center">
   <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
     <img src="/preview/logo.svg" width="325" height="325" alt="Logo">
