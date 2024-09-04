@@ -63,8 +63,6 @@ And would come out rendered in the Rich Text Editor like this:
 
 Of course, the background of this card depends on your Joplin theme.
 
-See the [example note](#example-note) for a visual of how this feature works.
-
 <br>
 
 <a name="recipe-scaling"></a>
@@ -95,7 +93,6 @@ After updating the ```original=```, ```scaled=```, or any scalable values throug
 
 ![recipe-card+border_example](/preview/gear-icon+border_example.png)
 
-See the [example note](#example-note) for a visual of how this feature works.
 <br>
 
 <a name="example-note"></a>
