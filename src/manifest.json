@@ -24,11 +24,11 @@
     ],
     "screenshots": [
         {
-            "src": "https://raw.githubusercontent.com/drewmarsh/joplin-recipe-scaler/main/preview/cherry-limeade-example.png",
+            "src": "preview/cherry-limeade-example.png",
             "label": "Cherry Limeade Recipe Example"
         },
         {
-            "src": "https://raw.githubusercontent.com/drewmarsh/joplin-recipe-scaler/main/preview/hawaiian-ice-example.png",
+            "src": "preview/hawaiian-ice-example.png",
             "label": "Hawaiian Ice Recipe Example"
         }
     ],
