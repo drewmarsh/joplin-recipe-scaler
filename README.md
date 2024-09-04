@@ -63,8 +63,6 @@ And would come out rendered in the Rich Text Editor like this:
 
 Of course, the background of this card depends on your Joplin theme.
 
-See the [example note](#example-note) for a visual of how this feature works.
-
 <br>
 
 <a name="recipe-scaling"></a>
@@ -93,7 +91,8 @@ Alternatively, values that should be scaled fractionally (cups, teaspoons, table
 
 After updating the ```original=```, ```scaled=```, or any scalable values throughout your note, you have to click the ```gear icon``` on your toolbar to trigger the plugin to update the note accordingly.
 
-See the [example note](#example-note) for a visual of how this feature works.
+![recipe-card+border_example](/preview/gear-icon+border_example.png)
+
 <br>
 
 <a name="example-note"></a>
