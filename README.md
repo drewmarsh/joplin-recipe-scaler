@@ -1,3 +1,7 @@
+<!---
+Copyright (c) 2024 Drew Marshall
+--->
+
 <p align="center">
   <a href="https://github.com/drewmarsh/joplin-recipe-scaler">
     <img src="/preview/logo.svg" width="325" height="325" alt="Logo">
@@ -8,6 +12,8 @@
 ![hawaiian-ice-example](/preview/hawaiian-ice-example.png)
 
 ![cherry-limeade-example](/preview/cherry-limeade-example.png)
+
+<br>
 
 # 🍽️ The 5 Courses
 ### [🔎 Preview](#preview)
