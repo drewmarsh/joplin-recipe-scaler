@@ -24,10 +24,6 @@
     ],
     "screenshots": [
         {
-            "src": "preview/cherry-limeade-example.png",
-            "label": "Cherry Limeade Recipe Example"
-        },
-        {
             "src": "preview/hawaiian-ice-example.png",
             "label": "Hawaiian Ice Recipe Example"
         }
