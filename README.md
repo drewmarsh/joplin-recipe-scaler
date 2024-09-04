@@ -9,6 +9,8 @@
 
 ![cherry-limeade-example](/preview/cherry-limeade-example.png)
 
+<br>
+
 # 🍽️ The 5 Courses
 ### [🔎 Preview](#preview)
 ### [✨ Recipe Cards](#recipe-cards)
