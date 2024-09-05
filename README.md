@@ -7,7 +7,6 @@ Copyright (c) 2024 Drew Marshall
     <img src="/preview/logo.svg" width="325" height="325" alt="Logo">
   </a>
 </p>
-<a name="preview"></a>
 
 ![hawaiian-ice-example](/preview/hawaiian-ice-example.png)
 
@@ -16,7 +15,7 @@ Copyright (c) 2024 Drew Marshall
 <br>
 
 # 🍽️ The 5 Courses
-### [🔎 Preview](#preview)
+### [📥 Installation](#installation)
 ### [✨ Recipe Cards](#recipe-cards)
 ### [⚖️ Recipe Scaling](#recipe-scaling)
 ### [📜 Example Note](#example-note)
@@ -146,6 +145,16 @@ This example demonstrates how to use the recipe card and recipe scaling features
 #### Rich Text Editor:
 
 <img src="/preview/example-note+border.png" width="700" alt="Example Note">
+
+<br>
+
+<a name="installation"></a>
+# 📥 Installation
+1. Open Joplin
+2. Navigate to settings (“Tools > Options” on Windows/Linux, “Joplin > Settings” on a Mac)
+3. Click on 'Plugins' in the sidebar.
+4. Search for “Recipe Scaler”.
+5. Click 'Install'.
 
 <br>
 
