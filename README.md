@@ -150,11 +150,11 @@ This example demonstrates how to use the recipe card and recipe scaling features
 
 <a name="installation"></a>
 # 📥 Installation
-1. Open Joplin
-2. Navigate to settings (“Tools > Options” on Windows/Linux, “Joplin > Settings” on a Mac)
-3. Click on 'Plugins' in the sidebar.
-4. Search for “Recipe Scaler”.
-5. Click 'Install'.
+-  Open Joplin
+- Navigate to settings (“Tools > Options” on Windows/Linux, “Joplin > Settings” on a Mac)
+- Click on 'Plugins' in the sidebar.
+- Search for “Recipe Scaler”.
+- Click 'Install'.
 
 <br>
 
