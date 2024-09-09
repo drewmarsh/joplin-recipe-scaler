@@ -144,11 +144,11 @@ module.exports = {
                     },
 
                     /**
-                     * Converts all text fractions to Unicode fractions.
+                     * Converts text fractions to Unicode fractions within a given string.
                      * @param {string} content - The content string to convert.
                      * @returns {string} The content with Unicode fractions.
                      */
-                    convertAllFractionsToUnicode: function(content) {
+                    convertFractionsToUnicode: function(content) {
                         return content.replace(/(\d+)?[-\s]?(\d+)\/(\d+)/g, (match, whole, numerator, denominator) => {
                             const fractionPart = this.textFractionToUnicode(`${numerator}/${denominator}`);
                             return whole ? `${whole} ${fractionPart}` : fractionPart;
@@ -335,9 +335,7 @@ module.exports = {
                      * @returns {string} The processed content.
                      */
                     process: function(content) {
-                        let processedContent = this.handleScaledAmounts(content);
-                        processedContent = FractionUtils.convertAllFractionsToUnicode(processedContent);
-                        return processedContent;
+                        return this.handleScaledAmounts(content);
                     },
 
                     /**
@@ -348,12 +346,13 @@ module.exports = {
                     handleScaledAmounts: function(content) {
                         // Handle scaled amounts in curly braces
                         content = content.replace(/\{(\d+(?:\.\d+)?)(?:,\s*(\d+(?:\.\d+)?))?\}/g, (match, original, scaled) => {
-                            return FractionUtils.convertAllFractionsToUnicode(scaled || original);
+                            return scaled || original;
                         });
 
-                        // Handle scaled amounts in angle brackets
-                        content = content.replace(/<(\d+(?:\.\d+)?(?:[\s-]+[\d\/]+)?|(?:[\d\/]+)|(?:[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+))(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]+|(?:[\d.]+(?:[\s-]+[\d\/]+)?|(?:[\d\/]+))))?\s*>/g, (match, original, scaled) => {
-                            return FractionUtils.convertAllFractionsToUnicode(scaled || original);
+                        // Handle scaled amounts in angle brackets, including fraction conversion
+                        content = content.replace(/<([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞\/\-]+)(?:,\s*([\d\s¼½¾⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞\/\-]+))?\s*>/g, (match, original, scaled) => {
+                            let result = scaled || original;
+                            return FractionUtils.convertFractionsToUnicode(result);
                         });
 
                         return content;
