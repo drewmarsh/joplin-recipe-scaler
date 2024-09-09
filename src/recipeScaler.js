@@ -25,14 +25,14 @@ module.exports = {
                      * @type {Object.<string, string>}
                      */
                     colorMap: {
-                        red: '#ff0000', blue: '#0000ff', green: '#008000', yellow: '#ffd700',
+                        red: '#ff0000', blue: '#0000ff', green: '#008000', yellow: '#ffff00',
                         orange: '#ff8b25', brick: '#a52a2a', black: '#000000', sky: '#87ceeb',
                         white: '#ffffff', gray: '#808080', silver: '#c0c0c0', wheat: '#f5deb3',
                         navy: '#000080', teal: '#008080', maroon: '#800000', olive: '#808000',
-                        lime: '#00ff00', aqua: '#00ffff', turquoise: '#40e0d0', indigo: '#4b0082',
-                        purple: '#ee82ee', magenta: '#ff00ff', tan: '#f4ba86', chocolate: '#d2691e',
-                        coral: '#ff7f50', crimson: '#dc143c', khaki: '#f0e68c', salmon: '#fa8072',  
-                        pink: '#ffb6c1'
+                        lime: '#00ff00', cyan: '#00ffff', turquoise: '#40e0d0', gold: '#ffd700',
+                        purple: '#4b0082', magenta: '#ff00ff', tan: '#f4ba86', brown: '#5c3c2b',
+                        coral: '#ff7f50', crimson: '#dc143c', khaki: '#c3b091', salmon: '#fa8072',  
+                        pink: '#ffb6c1', mint: '#98ff98'
                     },
 
                     /**
